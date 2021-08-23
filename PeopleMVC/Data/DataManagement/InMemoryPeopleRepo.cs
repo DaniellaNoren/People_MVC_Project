@@ -8,8 +8,15 @@ namespace PeopleMVC.Models.DataManagement
 {
     public class InMemoryPeopleRepo : IPeopleRepo
     {
-        private static List<Person> people = new List<Person>();
+      
         private static int idCounter;
+        private static List<Person> people = new List<Person>()
+        {
+            new Person("Olle", "Larsson", "Stockholm", "074-3232-356", ++idCounter),
+            new Person("Karin", "Andersson", "Stockholm", "074-3244-444", ++idCounter),
+            new Person("Fatima", "Koh", "Göteborg", "071-1234-123", ++idCounter),
+            new Person("Tina", "Zwanzig", "Berlin", "031-5092-333", ++idCounter)
+        };
 
         public Person Create(string firstName, string lastName, string city, string phoneNr)
         {

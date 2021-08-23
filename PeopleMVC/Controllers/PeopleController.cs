@@ -10,9 +10,14 @@ namespace PeopleMVC.Controllers
     public class PeopleController : Controller
     {
         private static IPeopleService _peopleService;
+
+        public PeopleController(IPeopleService peopleService)
+        {
+            _peopleService = peopleService;
+        }
         public IActionResult Index()
         {
-            return View();
+            return View(_peopleService.All());
         }
     }
 }

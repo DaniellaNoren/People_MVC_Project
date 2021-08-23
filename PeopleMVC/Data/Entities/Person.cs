@@ -18,17 +18,16 @@ namespace PeopleMVC.Models.Entities
         public int Id { get { return id; } set { id = value; } }
         private int id;
         public Person(string firstName, string lastName, 
-            string city, string phoneNr, int id)
+            string city, string phoneNr, int id) : this(id)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.City = city;
             this.PhoneNr = phoneNr;
-            this.Id = id;
         }
-        public Person()
+        public Person(int id)
         {
-
+            this.Id = id;
         }
     }
 }
