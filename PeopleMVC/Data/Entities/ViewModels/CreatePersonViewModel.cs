@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace PeopleMVC.Data.Entities.ViewModels
 {
-    public class PersonViewModel
+    public class CreatePersonViewModel
     {
+        
     }
 }
