@@ -20,5 +20,7 @@ namespace PeopleMVC.Models.Services
         Person Edit(int id, Person person);
 
         bool Remove(int id);
+
+        PeopleViewModel SortBy(string fieldName, bool alphabetical);
     }
 }

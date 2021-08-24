@@ -39,8 +39,8 @@ namespace PeopleMVC.Models.Services
 
             if (!string.IsNullOrEmpty(search.SearchTerm))
             {
-                StringComparison stringComparison = search.CaseSensitive ? 
-                    StringComparison.CurrentCulture : 
+                StringComparison stringComparison = search.CaseSensitive ?
+                    StringComparison.CurrentCulture :
                     StringComparison.CurrentCultureIgnoreCase;
 
                 people = people.FindAll(p =>
@@ -56,7 +56,7 @@ namespace PeopleMVC.Models.Services
 
             return search;
         }
-        
+
         public Person FindBy(int id)
         {
             return _repo.Read(id);
@@ -65,6 +65,35 @@ namespace PeopleMVC.Models.Services
         public bool Remove(int id)
         {
             return _repo.Delete(FindBy(id));
+        }
+
+        public PeopleViewModel SortBy(string fieldName, bool alphabetical)
+        {
+            List<Person> people = All().People;
+
+            if (!string.IsNullOrEmpty(fieldName))
+            {
+                if (alphabetical)
+                {
+                    people = people.OrderBy(p =>
+                    {
+                        return p.GetType().GetProperty(fieldName)
+                           .GetValue(p).ToString();
+
+                    }).ToList();
+                }
+                else
+                {
+                    people = people.OrderByDescending(p =>
+                    {
+                        return p.GetType().GetProperty(fieldName)
+                           .GetValue(p).ToString();
+
+                    }).ToList();
+                }
+            }
+            return new PeopleViewModel() { People = people };
+
         }
     }
 }

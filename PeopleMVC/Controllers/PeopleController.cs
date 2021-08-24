@@ -29,7 +29,6 @@ namespace PeopleMVC.Controllers
             {
                 _peopleService.Add(person);
 
-                return RedirectToAction("PeopleIndex");
             }
 
             return RedirectToAction("PeopleIndex");
@@ -46,5 +45,12 @@ namespace PeopleMVC.Controllers
 
             return RedirectToAction("PeopleIndex");
         }
+
+        [HttpPost]
+        public IActionResult SortPeople(SortingModel sortingModel)
+        {
+            return View("PeopleIndex", _peopleService.SortBy(sortingModel.FieldName, sortingModel.Alphabetical));
+        }
+
     }
 }

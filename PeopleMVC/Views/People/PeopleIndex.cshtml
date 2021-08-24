@@ -1,0 +1,71 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using PeopleMVC.Data.Entities.ViewModels;
+@model PeopleViewModel;
+@{
+}
+<div id="people-table">
+    <table>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>City</th>
+            <th>Phonenumber</th>
+        </tr>
+
+        @foreach (var p in Model.People)
+        {
+            <tr>
+                <td>@p.FirstName</td>
+                <td>@p.LastName</td>
+                <td>@p.City</td>
+                <td>@p.PhoneNr</td>
+                <td>
+                    <a asp-controller="People" asp-action="RemovePerson" asp-route-id="@p.Id">Remove</a>
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+<div class="form-holder" id="sort-people">
+    <form asp-controller="People" asp-action="SortPeople" method="post">
+        <input type="checkbox" name="Alphabetical" id="Alphabetical" value="true" checked />
+        <label for="fields">Sort by:</label>
+        <input list="fields" name="FieldName" id="FieldName">
+        <datalist id="fields">
+            <option value="City" />
+            <option value="FirstName" />
+            <option value="LastName" />
+        </datalist>
+
+        <input type="submit" value="Sort" />
+    </form>
+</div>
+<div class="form-holder" id="filter-people">
+    <form asp-controller="People" asp-action="FilterPeople" method="post">
+        <label for="fields">Filter by:</label>
+        <input list="fields" asp-for="FieldName" name="FieldName" id="field">
+        <datalist id="fields">
+            <option value="City" />
+            <option value="FirstName" />
+            <option value="LastName" />
+        </datalist>
+        <label for="SearchTerm">Search term:</label>
+        <input type="text" asp-for="SearchTerm" />
+        <label for="CaseSensitive">Case-sensitive:</label>
+        <input type="checkbox" asp-for="CaseSensitive" />
+        <input type="submit" value="Filter" />
+    </form>
+</div>
+<div class="form-holder" id="add-person">
+    <form asp-controller="People" asp-action="AddPerson" method="post">
+        <input type="text" name="FirstName" value="First name" />
+        <input type="text" name="LastName" value="Last name" />
+        <input type="text" name="City" value="City" />
+        <input type="text" name="PhoneNr" value="Phone number" />
+        <input type="submit" name="name" value="Create" />
+    </form>
+</div>

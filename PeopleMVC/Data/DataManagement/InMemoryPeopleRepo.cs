@@ -12,10 +12,11 @@ namespace PeopleMVC.Models.DataManagement
         private static int idCounter;
         private static List<Person> people = new List<Person>()
         {
+             new Person("Tina", "Zwanzig", "Berlin", "031-5092-333", ++idCounter),
             new Person("Olle", "Larsson", "Stockholm", "074-3232-356", ++idCounter),
             new Person("Karin", "Andersson", "Stockholm", "074-3244-444", ++idCounter),
-            new Person("Fatima", "Koh", "Göteborg", "071-1234-123", ++idCounter),
-            new Person("Tina", "Zwanzig", "Berlin", "031-5092-333", ++idCounter)
+            new Person("Fatima", "Koh", "Göteborg", "071-1234-123", ++idCounter)
+           
         };
 
         public Person Create(string firstName, string lastName, string city, string phoneNr)
@@ -44,7 +45,7 @@ namespace PeopleMVC.Models.DataManagement
                 return person;
             }
 
-            throw new Exception("Person with id " + id + " not found");
+            throw new EntityNotFoundException("Person with id " + id + " not found");
         }
 
         public Person Update(Person person)
