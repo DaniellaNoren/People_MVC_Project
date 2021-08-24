@@ -3,6 +3,9 @@
 *@
 @using PeopleMVC.Data.Entities.ViewModels;
 @model PeopleViewModel;
+@section styles {
+    <link href="~/css/peopleViewStyle.css" rel="stylesheet" type="text/css" />
+}
 @{
 }
 <div id="people-table">
@@ -30,42 +33,75 @@
 
     </table>
 </div>
-<div class="form-holder" id="sort-people">
-    <form asp-controller="People" asp-action="SortPeople" method="post">
-        <input type="checkbox" name="Alphabetical" id="Alphabetical" value="true" checked />
-        <label for="fields">Sort by:</label>
-        <input list="fields" name="FieldName" id="FieldName">
-        <datalist id="fields">
-            <option value="City" />
-            <option value="FirstName" />
-            <option value="LastName" />
-        </datalist>
 
-        <input type="submit" value="Sort" />
+<div class="form-holder">
+    <form id="sort-people" asp-controller="People" asp-action="SortPeople" method="post">
+
+        <div class="input-label">
+            <label for="fields">Sort by:</label>
+            <input class="list-input" list="fields" name="FieldName" id="FieldName">
+            <datalist id="fields">
+                <option value="City" />
+                <option value="FirstName" />
+                <option value="LastName" />
+            </datalist>
+        </div>
+
+        <div class="input-label">
+            <label for="Alphabetical">Alphabetical:</label>
+            <input type="checkbox" name="Alphabetical" id="Alphabetical" value="true" checked />
+        </div>
+            <input class="submit-btn" type="submit" value="Sort" />
     </form>
 </div>
-<div class="form-holder" id="filter-people">
-    <form asp-controller="People" asp-action="FilterPeople" method="post">
-        <label for="fields">Filter by:</label>
-        <input list="fields" asp-for="FieldName" name="FieldName" id="field">
-        <datalist id="fields">
-            <option value="City" />
-            <option value="FirstName" />
-            <option value="LastName" />
-        </datalist>
-        <label for="SearchTerm">Search term:</label>
-        <input type="text" asp-for="SearchTerm" />
-        <label for="CaseSensitive">Case-sensitive:</label>
-        <input type="checkbox" asp-for="CaseSensitive" />
-        <input type="submit" value="Filter" />
+<div class="form-holder">
+    <form id="filter-people" asp-controller="People" asp-action="FilterPeople" method="post">
+        
+        <div class="input-label">
+            <label for="fields">Filter by:</label>
+            <input class="list-input" list="fields" asp-for="FieldName" name="FieldName" id="field">
+            <datalist id="fields">
+                <option value="City" />
+                <option value="FirstName" />
+                <option value="LastName" />
+            </datalist>
+        </div>
+
+        <div class="input-label">
+            <label for="SearchTerm">Search term:</label>
+            <input type="text" asp-for="SearchTerm" />
+        </div>
+
+        <div class="input-label">
+            <label for="CaseSensitive">Case-sensitive:</label>
+            <input type="checkbox" asp-for="CaseSensitive" />
+        </div>
+
+        <input class="submit-btn" type="submit" value="Filter" />
     </form>
 </div>
-<div class="form-holder" id="add-person">
-    <form asp-controller="People" asp-action="AddPerson" method="post">
-        <input type="text" name="FirstName" value="First name" />
-        <input type="text" name="LastName" value="Last name" />
-        <input type="text" name="City" value="City" />
-        <input type="text" name="PhoneNr" value="Phone number" />
-        <input type="submit" name="name" value="Create" />
+<div class="form-holder" >
+    <form id="add-person" asp-controller="People" asp-action="AddPerson" method="post">
+        <div class="input-label">
+            <label for="FirstName">Firstname:</label>
+            <input type="text" name="FirstName" value="First name" />
+        </div>
+
+        <div class="input-label">
+            <label for="LastName">Lastname:</label>
+            <input type="text" name="LastName" value="Last name" />
+        </div>
+
+        <div class="input-label">
+            <label for="City">City:</label>
+            <input type="text" name="City" value="City" />
+        </div>
+
+        <div class="input-label">
+            <label for="PhoneNr">Phonenumber:</label>
+            <input type="text" name="PhoneNr" value="Phone number" />
+        </div>
+
+        <input class="submit-btn" type="submit" name="name" value="Create" />
     </form>
 </div>

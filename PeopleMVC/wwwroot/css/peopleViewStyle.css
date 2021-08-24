@@ -1,0 +1,26 @@
+﻿
+#people-table, .form-holder {
+    margin: 1vh;
+}
+.form-holder{
+    width: 30vw;
+    min-height: 8vw;
+    background-color: white;
+    border: 1px solid black;
+}
+.input-label{
+    margin: 1vh;
+}
+th, td {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+}
+.submit-btn{
+    width: 10vw;
+    display: block;
+    margin: 1vw;
+}
+.list-input{
+    max-width: 10vw;
+}
