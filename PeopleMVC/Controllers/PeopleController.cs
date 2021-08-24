@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace PeopleMVC.Controllers
 {
+    
     public class PeopleController : Controller
     {
         private static IPeopleService _peopleService;
@@ -16,7 +17,7 @@ namespace PeopleMVC.Controllers
         {
             _peopleService = peopleService;
         }
-        public IActionResult Index()
+        public IActionResult PeopleIndex()
         {
             return View(_peopleService.All());
         }
@@ -24,17 +25,26 @@ namespace PeopleMVC.Controllers
         [HttpPost]
         public IActionResult AddPerson(CreatePersonViewModel person) 
         {
-            _peopleService.Add(person);
+            if (ModelState.IsValid)
+            {
+                _peopleService.Add(person);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("PeopleIndex");
+            }
+
+            return RedirectToAction("PeopleIndex");
         }
 
-        [HttpDelete("/{id}")]
+        public IActionResult FilterPeople(PeopleViewModel searchTerms)
+        {
+            return View("PeopleIndex", _peopleService.FindBy(searchTerms)); 
+        }
+
         public IActionResult RemovePerson(int id)
         {
             _peopleService.Remove(id);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("PeopleIndex");
         }
     }
 }

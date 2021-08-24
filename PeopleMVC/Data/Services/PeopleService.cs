@@ -24,7 +24,7 @@ namespace PeopleMVC.Models.Services
 
         public PeopleViewModel All()
         {
-            return new PeopleViewModel() { people = _repo.Read() };
+            return new PeopleViewModel() { People = _repo.Read() };
         }
 
         public Person Edit(int id, Person person)
@@ -35,14 +35,26 @@ namespace PeopleMVC.Models.Services
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
-            return new PeopleViewModel() { people = All().people.FindAll(p =>
-            {
-                return p.GetType().GetProperty(search.FieldName)
-                   .GetValue(p).ToString()
-                   .StartsWith(search.SearchTerm);
+            List<Person> people = All().People;
 
-            }).ToList() 
-            };
+            if (!string.IsNullOrEmpty(search.SearchTerm))
+            {
+                StringComparison stringComparison = search.CaseSensitive ? 
+                    StringComparison.CurrentCulture : 
+                    StringComparison.CurrentCultureIgnoreCase;
+
+                people = people.FindAll(p =>
+                {
+                    return p.GetType().GetProperty(search.FieldName)
+                       .GetValue(p).ToString()
+                       .Contains(search.SearchTerm, stringComparison);
+
+                }).ToList();
+            }
+
+            search.People = people;
+
+            return search;
         }
         
         public Person FindBy(int id)
