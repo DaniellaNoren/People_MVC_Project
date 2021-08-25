@@ -1,18 +1,29 @@
-﻿
+﻿.content{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 100%;
+}
 #people-table, .form-holder {
     margin: 1vh;
 }
-.form-holder{
+.form-holder {
     width: 30vw;
     min-height: 8vw;
     background-color: white;
     border: 1px solid black;
+    background-color: #e2eCe9;
 }
 .input-label{
     margin: 1vh;
 }
+th {
+    background-color: #fad2e1;
+}
+td {
+    background-color: #fde2e4;
+}
 th, td {
-    border: 1px solid black;
+    border: 1px solid #e2eCe9;
     text-align: left;
     padding: 8px;
 }
