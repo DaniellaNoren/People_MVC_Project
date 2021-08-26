@@ -64,7 +64,16 @@ namespace PeopleMVC.Models.Services
 
         public bool Remove(int id)
         {
-            return _repo.Delete(FindBy(id));
+            try
+            {
+                Person p = FindBy(id);
+                return _repo.Delete(p);
+            }
+            catch (EntityNotFoundException)
+            {
+                return false;
+            }
+            
         }
 
         public PeopleViewModel SortBy(string fieldName, bool alphabetical)

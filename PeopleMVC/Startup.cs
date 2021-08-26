@@ -21,6 +21,17 @@ namespace PeopleMVC
             services.AddMvc();
             services.AddSingleton<IPeopleService, PeopleService>();
             services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllPolicy",
+                                    builder =>
+                                    {
+                                        builder.AllowAnyOrigin()
+                                                            .AllowAnyHeader()
+                                                            .AllowAnyMethod();
+                                    });
+            });
         }
 
      
@@ -30,6 +41,14 @@ namespace PeopleMVC
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(options =>
+            {
+                options.AllowAnyHeader();
+                options.AllowAnyMethod();
+                options.AllowAnyOrigin();
+            });
+
 
             app.UseStaticFiles();
 

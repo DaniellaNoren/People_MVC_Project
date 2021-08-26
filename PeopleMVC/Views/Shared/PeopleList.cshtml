@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model PeopleViewModel;
+@{
+}
+@if(Model != null){
+<div>
+
+    @foreach(var p in Model.People)
+     {
+       <div>@p.FirstName</div>
+       <div>@p.LastName</div>
+       <div>@p.City</div>
+       <div>@p.PhoneNr</div>
+     }
+
+</div>
+
+}

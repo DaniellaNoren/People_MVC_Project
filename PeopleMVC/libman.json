@@ -16,6 +16,10 @@
         "css/bootstrap-grid.rtl.min.css",
         "css/bootstrap-grid.rtl.min.css.map"
       ]
+    },
+    {
+      "library": "jquery@3.6.0",
+      "destination": "wwwroot/jquery/"
     }
   ]
 }
