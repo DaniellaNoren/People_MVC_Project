@@ -4,17 +4,19 @@
 @model PeopleViewModel;
 @{
 }
-@if(Model != null){
-<div>
+<div class="row" id="headers">
+    <p>Firstname</p>
+    <p>Lastname</p>
+    <p>City</p>
+    <p>Phonenumber</p>
+</div>
 
+@if(Model != null){
+
+    
     @foreach(var p in Model.People)
      {
-       <div>@p.FirstName</div>
-       <div>@p.LastName</div>
-       <div>@p.City</div>
-       <div>@p.PhoneNr</div>
+        <partial name="PersonView.cshtml" model="@p" />
      }
-
-</div>
 
 }

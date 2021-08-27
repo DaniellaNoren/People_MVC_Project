@@ -8,14 +8,18 @@
 @{
     ViewBag.Title = "Ajax";
 }
+@section styles {
+    <link href="~/css/peopleViewStyle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/ajaxStyle.css" rel="stylesheet" type="text/css" />
+}
 <div>
-    <h1>People</h1>
-    <button id="load-people-btn">People</button>
+    <h1 id="header">People</h1>
+    <button id="load-people-btn" class="btn">People</button>
 
     <input type="text" name="id" value="" id="id-input" />
 
-    <button id="details-btn">Details</button>
-    <button id="delete-btn">Delete</button>
+    <button id="details-btn" class="btn">Details</button>
+    <button id="delete-btn" class="btn">Delete</button>
 
     <div id="people">
 

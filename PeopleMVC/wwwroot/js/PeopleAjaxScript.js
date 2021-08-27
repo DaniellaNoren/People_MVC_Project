@@ -9,19 +9,21 @@ $("#load-people-btn")
 
 $("#delete-btn")
     .click(function () {
+        resetResponseText();
         let id = getId()
-        $.post(`/Ajax/Delete/${id}`).done(() => { changeResponseText(`Person with id ${id} deleted.`); loadPeople(); })
+        $.post(`/Ajax/Delete/${id}`).done(() => { changeResponseText(`Person with id '${id}' deleted.`); loadPeople(); })
             .fail(() =>
-                changeResponseText(`Person with id ${id} failed to be deleted.`))
+                changeResponseText(`Person with id '${id}' failed to be deleted.`))
     });
 
 $("#details-btn")
     .click(function () {
+        resetResponseText();
         let id = getId()
         $.post(`/Ajax/Details/${id}`, res =>
             $("#people").html(res))
             .fail(() => {
-               changeResponseText(`Person with id ${id} does not exist.`)
+               changeResponseText(`Person with id '${id}' does not exist.`)
             })
     });
 
