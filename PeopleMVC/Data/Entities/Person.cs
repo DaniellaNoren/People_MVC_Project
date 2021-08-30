@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,8 +16,12 @@ namespace PeopleMVC.Models.Entities
         private string city;
         public string PhoneNr { get { return phoneNr; } set { phoneNr = value; } }
         private string phoneNr;
+
+        [Key]
         public int Id { get { return id; } set { id = value; } }
         private int id;
+
+        public Person() { }
         public Person(string firstName, string lastName, 
             string city, string phoneNr, int id) : this(id)
         {
