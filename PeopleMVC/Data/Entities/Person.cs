@@ -29,6 +29,14 @@ namespace PeopleMVC.Models.Entities
             this.LastName = lastName;
             this.City = city;
             this.PhoneNr = phoneNr;
+        } 
+        public Person(string firstName, string lastName, 
+            string city, string phoneNr) 
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.City = city;
+            this.PhoneNr = phoneNr;
         }
         public Person(int id)
         {

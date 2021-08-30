@@ -8,6 +8,7 @@ using PeopleMVC.Data.DataBase;
 using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Services;
 using Microsoft.Extensions.Configuration;
+using PeopleMVC.Data.DataManagement;
 
 namespace PeopleMVC
 {
@@ -24,8 +25,9 @@ namespace PeopleMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton<IPeopleService, PeopleService>();
-            services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>();
+            services.AddScoped<IPeopleService, PeopleService>();
+            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
+
             services.AddDbContext<PeopleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PeopleDB")));
 
             services.AddCors(options =>
