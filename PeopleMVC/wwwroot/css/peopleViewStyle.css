@@ -1,6 +1,6 @@
 ﻿.content{
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 30vw auto;
     grid-template-rows: 100%;
 }
 
@@ -8,7 +8,10 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    width: 10vw;
+    width: 20vw;
+}
+#person > p{
+    width: 3vw;
 }
 #person-row {
     width: 100%;

@@ -18,9 +18,9 @@ namespace PeopleMVC.Data.DataManagement
             _context = context;
         }
 
-        public Person Create(string firstName, string lastName, string city, string phoneNr)
+        public Person Create(string firstName, string lastName, string city, string phoneNr, string socialSecurityNr)
         {
-            Person person = new Person(firstName, lastName, city, phoneNr);
+            Person person = new Person(firstName, lastName, city, phoneNr, socialSecurityNr);
             person = _context.People.Add(person).Entity;
             _context.SaveChanges();
             return person;
@@ -46,6 +46,17 @@ namespace PeopleMVC.Data.DataManagement
                 throw new EntityNotFoundException("Person with id " + id + " not found");
 
             return person;
+        }
+
+        public Person Read(string socialSecurityNr)
+        {
+            Person person = _context.People.First(p => p.SocialSecurityNr.Equals(socialSecurityNr));
+
+            if (person == null)
+                throw new EntityNotFoundException("Person with SSN " + socialSecurityNr + " not found");
+
+            return person;
+
         }
 
         public Person Update(Person person)

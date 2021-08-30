@@ -8,7 +8,7 @@ namespace PeopleMVC.Models.DataManagement
 {
     public interface IPeopleRepo
     {
-        Person Create(string firstName, string lastName, string city, string phoneNr);
+        Person Create(string firstName, string lastName, string city, string phoneNr, string socialSecurityNr);
 
         List<Person> Read();
 

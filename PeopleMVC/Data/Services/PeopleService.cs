@@ -19,7 +19,7 @@ namespace PeopleMVC.Models.Services
 
         public Person Add(CreatePersonViewModel person)
         {
-            return _repo.Create(person.FirstName, person.LastName, person.City, person.PhoneNr);
+            return _repo.Create(person.FirstName, person.LastName, person.City, person.PhoneNr, person.SocialSecurityNr);
         }
 
         public PeopleViewModel All()

@@ -12,16 +12,16 @@ namespace PeopleMVC.Models.DataManagement
         private static int idCounter;
         private static List<Person> people = new List<Person>()
         {
-             new Person("Tina", "Zwanzig", "Berlin", "031-5092-333", ++idCounter),
-            new Person("Olle", "Larsson", "Stockholm", "074-3232-356", ++idCounter),
-            new Person("Karin", "Andersson", "Stockholm", "074-3244-444", ++idCounter),
-            new Person("Fatima", "Koh", "Göteborg", "071-1234-123", ++idCounter)
+             new Person("Tina", "Zwanzig", "Berlin", "031-5092-333", ++idCounter, "1111111111"),
+            new Person("Olle", "Larsson", "Stockholm", "074-3232-356", ++idCounter, "222222222"),
+            new Person("Karin", "Andersson", "Stockholm", "074-3244-444", ++idCounter, "3333333333"),
+            new Person("Fatima", "Koh", "Göteborg", "071-1234-123", ++idCounter, "4444444444")
            
         };
 
-        public Person Create(string firstName, string lastName, string city, string phoneNr)
+        public Person Create(string firstName, string lastName, string city, string phoneNr, string socialSecurityNr)
         {
-            Person person = new Person(firstName, lastName, city, phoneNr, ++idCounter);
+            Person person = new Person(firstName, lastName, city, phoneNr, ++idCounter, socialSecurityNr);
             people.Add(person);
             return person;
         }
