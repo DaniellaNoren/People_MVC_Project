@@ -15,7 +15,7 @@ namespace PeopleMVC.Data.Entities.ViewModels
         [MaxLength(50)]
         public string LastName { get; set; }
         [Required]
-        public string City { get; set; }
+        public CityViewModel City { get; set; }
         [Phone]
         public string PhoneNr { get; set; }
 
@@ -23,7 +23,7 @@ namespace PeopleMVC.Data.Entities.ViewModels
         [StringLength(10)]
         public string SocialSecurityNr { get; set; }
 
-        public CreatePersonViewModel(string firstName, string lastName, string city, string phoneNr, string socialSecurityNumber)
+        public CreatePersonViewModel(string firstName, string lastName, CityViewModel city, string phoneNr, string socialSecurityNumber)
         {
             this.FirstName = firstName;
             this.LastName = lastName;

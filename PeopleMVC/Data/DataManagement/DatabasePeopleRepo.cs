@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeopleMVC.Data.DataBase;
+using PeopleMVC.Data.Entities;
 using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Entities;
 using System;
@@ -18,7 +19,7 @@ namespace PeopleMVC.Data.DataManagement
             _context = context;
         }
 
-        public Person Create(string firstName, string lastName, string city, string phoneNr, string socialSecurityNr)
+        public Person Create(string firstName, string lastName, City city, string phoneNr, string socialSecurityNr)
         {
             Person person = new Person(firstName, lastName, city, phoneNr, socialSecurityNr);
             person = _context.People.Add(person).Entity;

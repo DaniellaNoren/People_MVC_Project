@@ -1,4 +1,5 @@
-﻿using PeopleMVC.Data.Entities.ViewModels;
+﻿using PeopleMVC.Data.Entities;
+using PeopleMVC.Data.Entities.ViewModels;
 using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Entities;
 using System;
@@ -19,7 +20,7 @@ namespace PeopleMVC.Models.Services
 
         public Person Add(CreatePersonViewModel person)
         {
-            return _repo.Create(person.FirstName, person.LastName, person.City, person.PhoneNr, person.SocialSecurityNr);
+            return _repo.Create(person.FirstName, person.LastName, new City() { Name = person.City.Name }, person.PhoneNr, person.SocialSecurityNr);
         }
 
         public PeopleViewModel All()

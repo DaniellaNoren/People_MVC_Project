@@ -28,7 +28,7 @@ namespace PeopleMVC
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
 
-            services.AddDbContext<PeopleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PeopleDB")));
+            services.AddDbContext<PeopleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PeopleDB")).EnableSensitiveDataLogging());
 
             services.AddCors(options =>
             {

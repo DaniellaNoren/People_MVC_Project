@@ -1,4 +1,5 @@
-﻿using PeopleMVC.Models.Entities;
+﻿using PeopleMVC.Data.Entities;
+using PeopleMVC.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,14 @@ namespace PeopleMVC.Models.DataManagement
         private static int idCounter;
         private static List<Person> people = new List<Person>()
         {
-             new Person("Tina", "Zwanzig", "Berlin", "031-5092-333", ++idCounter, "1111111111"),
-            new Person("Olle", "Larsson", "Stockholm", "074-3232-356", ++idCounter, "222222222"),
-            new Person("Karin", "Andersson", "Stockholm", "074-3244-444", ++idCounter, "3333333333"),
-            new Person("Fatima", "Koh", "Göteborg", "071-1234-123", ++idCounter, "4444444444")
+             new Person("Tina", "Zwanzig", new Data.Entities.City(), "031-5092-333", ++idCounter, "1111111111"),
+            new Person("Olle", "Larsson", new Data.Entities.City(), "074-3232-356", ++idCounter, "222222222"),
+            new Person("Karin", "Andersson", new Data.Entities.City(), "074-3244-444", ++idCounter, "3333333333"),
+            new Person("Fatima", "Koh", new Data.Entities.City(), "071-1234-123", ++idCounter, "4444444444")
            
         };
 
-        public Person Create(string firstName, string lastName, string city, string phoneNr, string socialSecurityNr)
+        public Person Create(string firstName, string lastName, City city, string phoneNr, string socialSecurityNr)
         {
             Person person = new Person(firstName, lastName, city, phoneNr, ++idCounter, socialSecurityNr);
             people.Add(person);
