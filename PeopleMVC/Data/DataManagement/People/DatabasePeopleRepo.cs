@@ -29,8 +29,17 @@ namespace PeopleMVC.Data.DataManagement
 
         public bool Delete(Person person)
         {
-            _context.People.Remove(person);
-            _context.SaveChanges();
+            try
+            {
+                _context.People.Remove(person);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                return false;
+            }
+           
+          
             return true;
         }
 
