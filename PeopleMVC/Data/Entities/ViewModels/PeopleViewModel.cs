@@ -10,7 +10,7 @@ namespace PeopleMVC.Data.Entities.ViewModels
     public class PeopleViewModel
     {
         [Required]
-        public List<Person> People { get; set; }
+        public List<PersonViewModel> People { get; set; }
 
         [Required]
         public string FieldName { get; set; }

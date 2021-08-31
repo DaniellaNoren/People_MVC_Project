@@ -18,25 +18,27 @@ namespace PeopleMVC.Models.Services
             _repo = repo;
         }
 
-        public Person Add(CreatePersonViewModel person)
+        public PersonViewModel Add(CreatePersonViewModel person)
         {
-            return _repo.Create(person.FirstName, person.LastName, new City() { Name = person.City.Name }, person.PhoneNr, person.SocialSecurityNr);
+           Person createdPerson =_repo.Create(person.FirstName, person.LastName, new City() { Name = person.City.Name }, person.PhoneNr, person.SocialSecurityNr);
+           return GetPersonViewModelFromPerson(createdPerson);
         }
 
         public PeopleViewModel All()
         {
-            return new PeopleViewModel() { People = _repo.Read() };
+            return new PeopleViewModel() { People = _repo.Read().Select(p => GetPersonViewModelFromPerson(p)).ToList() };
         }
 
-        public Person Edit(int id, Person person)
+        public PersonViewModel Edit(int id, Person person)
         {
             person.Id = id;
-            return _repo.Update(person);
+            person =_repo.Update(person);
+            return GetPersonViewModelFromPerson(person);
         }
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
-            List<Person> people = All().People;
+            List<PersonViewModel> people = All().People;
 
             if (!string.IsNullOrEmpty(search.SearchTerm))
             {
@@ -58,17 +60,32 @@ namespace PeopleMVC.Models.Services
             return search;
         }
 
-        public Person FindBy(int id)
+        public PersonViewModel FindBy(int id)
         {
-            return _repo.Read(id);
+            Person person = _repo.Read(id);
+
+            return GetPersonViewModelFromPerson(person);
         }
+
+        private PersonViewModel GetPersonViewModelFromPerson(Person person)
+        {
+            return new PersonViewModel()
+            {
+                City = new CityViewModel() { Name = person.City.Name, Country = new CountryViewModel() { Name = person.City.Country.Name } },
+                FirstName = person.FirstName,
+                LastName = person.LastName,
+                Id = person.Id,
+                PhoneNr = person.PhoneNr,
+                SocialSecurityNr = person.SocialSecurityNr
+            };
+        }
+    
 
         public bool Remove(int id)
         {
             try
-            {
-                Person p = FindBy(id);
-                return _repo.Delete(p);
+            { 
+                return _repo.Delete(_repo.Read(id));
             }
             catch (EntityNotFoundException)
             {
@@ -79,7 +96,7 @@ namespace PeopleMVC.Models.Services
 
         public PeopleViewModel SortBy(string fieldName, bool alphabetical)
         {
-            List<Person> people = All().People;
+            List<PersonViewModel> people = All().People;
 
             if (!string.IsNullOrEmpty(fieldName))
             {
@@ -88,7 +105,7 @@ namespace PeopleMVC.Models.Services
                     people = people.OrderBy(p =>
                     {
                         return p.GetType().GetProperty(fieldName)
-                           .GetValue(p).ToString();
+                           .GetValue(p);
 
                     }).ToList();
                 }
@@ -97,7 +114,7 @@ namespace PeopleMVC.Models.Services
                     people = people.OrderByDescending(p =>
                     {
                         return p.GetType().GetProperty(fieldName)
-                           .GetValue(p).ToString();
+                           .GetValue(p);
 
                     }).ToList();
                 }

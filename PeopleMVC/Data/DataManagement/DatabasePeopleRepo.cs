@@ -36,7 +36,7 @@ namespace PeopleMVC.Data.DataManagement
 
         public List<Person> Read()
         {
-            return _context.People.ToList();
+            return _context.People.Include(p => p.City).ThenInclude(c => c.Country).ToList();
         }
 
         public Person Read(int id)
