@@ -1,17 +1,28 @@
 ﻿.content{
     display: grid;
-    grid-template-columns: 30vw auto;
+    grid-template-columns: auto 5vw auto;
     grid-template-rows: 100%;
 }
-
-#people-header, #person, #person-row {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    width: 20vw;
+#people-table{
+    grid-column: 1/2;
+  width: 50vw;
+  margin: 1vw;
 }
-#person > p{
-    width: 3vw;
+#people-header, #person-row {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+#person-row p{
+    width: 20%;
+}
+#people-header p{
+    width: 17%;
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+#person{
+    width: 100%;
 }
 #person-row {
     width: 100%;
@@ -27,8 +38,14 @@
     margin: 0;
     background-color: #fde2e4;
 }
+.header {
+    margin-left: 2vw;
+}
 #people-table, .form-holder {
     margin: 1vh;
+}
+#forms {
+    grid-column: 3/4;
 }
 .form-holder {
     margin-left: 2vw;
