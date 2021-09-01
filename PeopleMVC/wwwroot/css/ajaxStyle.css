@@ -1,0 +1,49 @@
+﻿.btn {
+    border: 1px solid black;
+    padding: 0.5vw;
+    width: 4vw;
+    font-size: 1vw;
+    border-radius: 5%;
+    margin-right: 0.5vw;
+}
+#load-people-btn{
+    background-color: #6790ce;
+}
+#details-btn{
+    background-color: #5fcd73;
+}
+#delete-btn{
+    background-color: #bc4040;
+}
+#id-input {
+    height: 2vw;
+    font-size: 1vw;
+    margin-right: 0.5vw;
+}
+#people, #response{
+    margin: 1vw;
+    font-size: 0.8vw;
+}
+#people p{
+  background-color: gray;
+}
+#people p, #headers p{
+    margin-right: 0.5vw;
+    padding: 0.6vw;
+}
+#headers p {
+    background-color: white;
+}
+#headers {
+    border: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 10vw;
+    background-color: none;
+    font-weight: bold;
+    font-size: 1vw;
+  
+}
+
+
