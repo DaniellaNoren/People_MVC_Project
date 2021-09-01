@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using PeopleMVC.Data.Entities.ViewModels;
+
 @model PeopleViewModel;
 @section styles {
     <link href="~/css/peopleViewStyle.css" rel="stylesheet" type="text/css" />
@@ -10,30 +10,27 @@
     ViewBag.Title = "People";
 }
 <div class="content">
+    
     <div id="people-table">
-        <table>
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>City</th>
-                <th>Phonenumber</th>
-            </tr>
 
-            @foreach (var p in Model.People)
-            {
-                <tr>
-                    <td>@p.FirstName</td>
-                    <td>@p.LastName</td>
-                    <td>@p.City</td>
-                    <td>@p.PhoneNr</td>
-                    <td>
-                        <a asp-controller="People" asp-action="RemovePerson" asp-route-id="@p.Id">Remove</a>
-                    </td>
+        <h2>People</h2>
+        <div id="people-header">
+            <p>Firstname</p>
+            <p>Lastname</p>
+            <p>City</p>
+            <p>Phonenumber</p>
+            <p>Action</p>
+        </div>
 
-                </tr>
-            }
+        @foreach (var p in Model.People)
+        {
+            <div id="person-row">
+                <partial name="~/Views/Shared/PersonView.cshtml" model="p" />
+                <a asp-controller="People" asp-action="RemovePerson" asp-route-id="@p.Id">Remove</a>
+            </div>
+        }
 
-        </table>
+
     </div>
 
     <div id="forms">
@@ -43,6 +40,7 @@
                 <div class="input-label">
                     <label for="fields">Sort by:</label>
                     <input class="list-input" list="fields" name="FieldName" id="FieldName">
+
                     <datalist id="fields">
                         <option value="City" />
                         <option value="FirstName" />
