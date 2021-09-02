@@ -18,10 +18,10 @@ namespace PeopleMVC.Data.Services.Cities
         {
             this._repo = repo;
         }
-        public CityViewModel Add(CityViewModel country)
+        public CityViewModel Add(CreateCityViewModel city)
         {
-            City city = _repo.Create(country.Country.Id, country.Name);
-            return GetViewModelFromEntity(city);
+            City createdCity = _repo.Create(city.CountryId, city.Name);
+            return GetViewModelFromEntity(createdCity);
         }
 
         public CitiesViewModel All()

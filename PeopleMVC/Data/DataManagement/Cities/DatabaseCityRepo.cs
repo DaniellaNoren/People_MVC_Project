@@ -19,7 +19,11 @@ namespace PeopleMVC.Data.DataManagement.Cities
         }
         public City Create(int countryId, string cityName)
         {
-            return _context.Cities.Add(new City() { CountryId = countryId, Name = cityName }).Entity;
+            City city = new City() { CountryId = countryId, Name = cityName };
+            _context.Cities.Add(city);
+            _context.SaveChanges();
+
+            return Read(city.Id);
         }
 
         public bool Delete(City city)
@@ -45,7 +49,7 @@ namespace PeopleMVC.Data.DataManagement.Cities
 
         public City Read(int id)
         {
-            City city = _context.Cities.Find(id);
+            City city = _context.Cities.Include(c => c.Country).FirstOrDefault(c => c.Id == id);
 
             if(city == null)
             {

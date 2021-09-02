@@ -10,7 +10,7 @@ namespace PeopleMVC.Data.Services.Cities
 {
     public interface ICityService
     {
-        CityViewModel Add(CityViewModel country);
+        CityViewModel Add(CreateCityViewModel country);
 
         CitiesViewModel All();
 

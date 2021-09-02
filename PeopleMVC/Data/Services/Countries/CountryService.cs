@@ -48,7 +48,7 @@ namespace PeopleMVC.Data.Services.Countries
 
         public CountryViewModel GetCountryViewModelFromEntity(Country country)
         {
-            return new CountryViewModel() { Name = country.Name };
+            return new CountryViewModel() { Name = country.Name, Id = country.Id };
         }
     }
 }

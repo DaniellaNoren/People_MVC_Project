@@ -22,9 +22,9 @@ namespace PeopleMVC.Data.DataManagement
         public Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr)
         {
             Person person = new Person(firstName, lastName,cityId, phoneNr, socialSecurityNr);
-            person = _context.People.Add(person).Entity;
+            _context.People.Add(person); 
             _context.SaveChanges();
-            return person;
+            return Read(person.Id);
         }
 
         public bool Delete(Person person)
@@ -50,7 +50,7 @@ namespace PeopleMVC.Data.DataManagement
 
         public Person Read(int id)
         {
-            Person person = _context.People.Find(id);
+            Person person = _context.People.Include(p => p.City).ThenInclude(c => c.Country).FirstOrDefault(p => p.Id == id);
 
             if (person == null)
                 throw new EntityNotFoundException("Person with id " + id + " not found");

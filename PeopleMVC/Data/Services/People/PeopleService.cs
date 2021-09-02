@@ -21,7 +21,7 @@ namespace PeopleMVC.Models.Services
         public PersonViewModel Add(CreatePersonViewModel person)
         {
             Person createdPerson = _repo.Create(person.FirstName, person.LastName, person.CityId, person.PhoneNr, person.SocialSecurityNr);
-            return GetPersonViewModelFromPersonWithoutCity(createdPerson);
+            return GetPersonViewModelFromPerson(createdPerson);
         }
 
         public PeopleViewModel All()
@@ -79,19 +79,6 @@ namespace PeopleMVC.Models.Services
                 SocialSecurityNr = person.SocialSecurityNr
             };
         }
-
-        private PersonViewModel GetPersonViewModelFromPersonWithoutCity(Person person)
-        {
-            return new PersonViewModel()
-            {
-                FirstName = person.FirstName,
-                LastName = person.LastName,
-                Id = person.Id,
-                PhoneNr = person.PhoneNr,
-                SocialSecurityNr = person.SocialSecurityNr
-            };
-        }
-
 
         public bool Remove(int id)
         {

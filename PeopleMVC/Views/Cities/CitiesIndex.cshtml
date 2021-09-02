@@ -4,9 +4,33 @@
 @model CitiesViewModel;
 @{
     ViewBag.Title = "Cities";
+    bool edit = false;
 }
 <h1>Cities</h1>
 @foreach (CityViewModel city in @Model.Cities)
 {
-   <partial name="CityList" model="@city" />
+    if (!edit)
+    {
+        <partial name="CityList" model="@city" />
+        <button onclick="@edit = !edit">Edit</button>
+                }
+    else
+    {
+
+    }
+
 }
+
+<form  asp-controller="Cities" asp-action="CreateCity" method="post">
+    <div class="input-label">
+        <label for="Name">Name:</label>
+        <input type="text" name="name" value="" />
+    </div>
+    <div class="input-label">
+        <label for="CountryId">Country:</label>
+        <select name="CountryId" asp-items="ViewBag.Countries">
+        </select>
+    </div>
+
+    <input type="submit" name="submit" value="Create"/>
+</form>
