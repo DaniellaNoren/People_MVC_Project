@@ -29,7 +29,7 @@ namespace PeopleMVC.Data.DataManagement.Cities
                 _context.Cities.Remove(city);
                 _context.SaveChanges();
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 return false;
             }
@@ -58,7 +58,10 @@ namespace PeopleMVC.Data.DataManagement.Cities
 
         public City Update(City city)
         {
-            throw new NotImplementedException();
+            _context.Attach(city);
+            _context.SaveChanges();
+
+            return Read(city.Id);
         }
     }
 }

@@ -20,8 +20,8 @@ namespace PeopleMVC.Models.Services
 
         public PersonViewModel Add(CreatePersonViewModel person)
         {
-           Person createdPerson =_repo.Create(person.FirstName, person.LastName, new City() { Name = person.City.Name }, person.PhoneNr, person.SocialSecurityNr);
-           return GetPersonViewModelFromPerson(createdPerson);
+            Person createdPerson = _repo.Create(person.FirstName, person.LastName, person.CityId, person.PhoneNr, person.SocialSecurityNr);
+            return GetPersonViewModelFromPersonWithoutCity(createdPerson);
         }
 
         public PeopleViewModel All()
@@ -32,7 +32,7 @@ namespace PeopleMVC.Models.Services
         public PersonViewModel Edit(int id, Person person)
         {
             person.Id = id;
-            person =_repo.Update(person);
+            person = _repo.Update(person);
             return GetPersonViewModelFromPerson(person);
         }
 
@@ -79,19 +79,26 @@ namespace PeopleMVC.Models.Services
                 SocialSecurityNr = person.SocialSecurityNr
             };
         }
-    
+
+        private PersonViewModel GetPersonViewModelFromPersonWithoutCity(Person person)
+        {
+            return new PersonViewModel()
+            {
+                FirstName = person.FirstName,
+                LastName = person.LastName,
+                Id = person.Id,
+                PhoneNr = person.PhoneNr,
+                SocialSecurityNr = person.SocialSecurityNr
+            };
+        }
+
 
         public bool Remove(int id)
         {
-            try
-            { 
-                return _repo.Delete(_repo.Read(id));
-            }
-            catch (EntityNotFoundException)
-            {
-                return false;
-            }
-            
+
+            return _repo.Delete(_repo.Read(id));
+
+
         }
 
         public PeopleViewModel SortBy(string fieldName, bool alphabetical)

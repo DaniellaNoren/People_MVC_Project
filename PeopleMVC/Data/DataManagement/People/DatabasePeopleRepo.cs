@@ -19,9 +19,9 @@ namespace PeopleMVC.Data.DataManagement
             _context = context;
         }
 
-        public Person Create(string firstName, string lastName, City city, string phoneNr, string socialSecurityNr)
+        public Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr)
         {
-            Person person = new Person(firstName, lastName, city, phoneNr, socialSecurityNr);
+            Person person = new Person(firstName, lastName,cityId, phoneNr, socialSecurityNr);
             person = _context.People.Add(person).Entity;
             _context.SaveChanges();
             return person;
@@ -34,7 +34,7 @@ namespace PeopleMVC.Data.DataManagement
                 _context.People.Remove(person);
                 _context.SaveChanges();
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 return false;
             }

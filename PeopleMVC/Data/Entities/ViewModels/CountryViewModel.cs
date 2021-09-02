@@ -11,6 +11,8 @@ namespace PeopleMVC.Data.Entities.ViewModels
         [Required]
         public string Name { get; set; }
 
+        public int Id { get; set; }
+
         public CountryViewModel()
         {
 

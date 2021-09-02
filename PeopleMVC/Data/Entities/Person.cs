@@ -39,11 +39,11 @@ namespace PeopleMVC.Models.Entities
 
         public Person() { }
         public Person(string firstName, string lastName, 
-            City city, string phoneNr, int id, string SSN) : this(id)
+            int cityId, string phoneNr, int id, string SSN) : this(id)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
-            this.City = city;
+            this.CityId = cityId;
             this.PhoneNr = phoneNr;
             this.SocialSecurityNr = SSN;
         } 
@@ -53,6 +53,15 @@ namespace PeopleMVC.Models.Entities
             this.FirstName = firstName;
             this.LastName = lastName;
             this.City = city;
+            this.PhoneNr = phoneNr;
+            this.SocialSecurityNr = SSN;
+        } 
+        public Person(string firstName, string lastName, 
+            int cityId, string phoneNr, string SSN) 
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.CityId = cityId;
             this.PhoneNr = phoneNr;
             this.SocialSecurityNr = SSN;
         }

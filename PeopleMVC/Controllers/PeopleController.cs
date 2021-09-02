@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleMVC.Data.Entities.ViewModels;
+using PeopleMVC.Data.Services.Cities;
+using PeopleMVC.Models.Entities;
 using PeopleMVC.Models.Services;
 using System;
 using System.Collections.Generic;
@@ -12,13 +15,16 @@ namespace PeopleMVC.Controllers
     public class PeopleController : Controller
     {
         private static IPeopleService _peopleService;
+        private static ICityService _cityService;
 
-        public PeopleController(IPeopleService peopleService)
+        public PeopleController(IPeopleService peopleService, ICityService cityService)
         {
             _peopleService = peopleService;
+            _cityService = cityService;
         }
         public IActionResult PeopleIndex()
         {
+            ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
             return View(_peopleService.All());
         }
         
@@ -49,6 +55,14 @@ namespace PeopleMVC.Controllers
         public IActionResult SortPeople(SortingModel sortingModel)
         {
             return View("PeopleIndex", _peopleService.SortBy(sortingModel.FieldName, sortingModel.Alphabetical));
+        }
+
+        [HttpPut("people/UpdatePerson/{id}")]
+        public IActionResult UpdatePerson(int id, Person person)
+        {
+            _peopleService.Edit(id, person);
+
+            return RedirectToAction("PeopleIndex");
         }
 
     }
