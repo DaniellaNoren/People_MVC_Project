@@ -1,6 +1,7 @@
 ﻿using PeopleMVC.Data.DataManagement.Countries;
 using PeopleMVC.Data.Entities;
 using PeopleMVC.Data.Entities.ViewModels;
+using PeopleMVC.Data.Entities.ViewModels.Country;
 using PeopleMVC.Models.DataManagement;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace PeopleMVC.Data.Services.Countries
         {
             this._repo = repo;
         }
-        public CountryViewModel Add(CountryViewModel country)
+        public CountryViewModel Add(CreateCountryViewModel country)
         {
             Country createdCountry = _repo.Create(country.Name);
             return GetCountryViewModelFromEntity(createdCountry);
@@ -48,7 +49,7 @@ namespace PeopleMVC.Data.Services.Countries
 
         public CountryViewModel GetCountryViewModelFromEntity(Country country)
         {
-            return new CountryViewModel() { Name = country.Name, Id = country.Id };
+            return new CountryViewModel() { Name = country.Name, Id = country.Id, Cities = country.Cities == null ? new List<CityViewModel>() : country.Cities.Select(s => new CityViewModel() { Name = s.Name, Id = s.Id }).ToList() };
         }
     }
 }

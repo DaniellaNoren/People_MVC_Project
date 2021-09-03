@@ -57,10 +57,13 @@ namespace PeopleMVC.Controllers
             return View("PeopleIndex", _peopleService.SortBy(sortingModel.FieldName, sortingModel.Alphabetical));
         }
 
-        [HttpPut("people/UpdatePerson/{id}")]
-        public IActionResult UpdatePerson(int id, Person person)
+        [HttpPost("people/UpdatePerson")]
+        public IActionResult UpdatePerson(Person person)
         {
-            _peopleService.Edit(id, person);
+            person.Id = 1;
+
+        
+            _peopleService.Edit(1, person);
 
             return RedirectToAction("PeopleIndex");
         }

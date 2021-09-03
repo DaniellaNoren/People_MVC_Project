@@ -41,7 +41,7 @@ namespace PeopleMVC.Data.DataManagement.Countries
 
         public List<Country> Read()
         {
-            return _context.Countries.ToList();
+            return _context.Countries.Include(c => c.Cities).ToList();
         }
 
         public Country Read(int id)

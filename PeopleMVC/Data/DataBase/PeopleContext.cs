@@ -21,9 +21,9 @@ namespace PeopleMVC.Data.DataBase
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>().HasAlternateKey(p => p.SocialSecurityNr);
-            modelBuilder.Entity<City>().HasAlternateKey(c => c.Name);
-            modelBuilder.Entity<Country>().HasAlternateKey(c => c.Name);
+            modelBuilder.Entity<Person>().HasIndex(p => p.SocialSecurityNr).IsUnique();
+            modelBuilder.Entity<City>().HasIndex(c => c.Name).IsUnique();
+            modelBuilder.Entity<Country>().HasIndex(c => c.Name).IsUnique();
             
             Country sweden = new Country() { Name = "Sweden", Id = 1 };
             Country germany = new Country() { Name = "Germany", Id = 2 };
@@ -44,8 +44,8 @@ namespace PeopleMVC.Data.DataBase
             Person fatima = new Person() { FirstName = "Fatima", LastName = "Koh", PhoneNr = "071-1234-123", Id = 4, CityId = goteborg.Id, SocialSecurityNr = "9206905678" };
 
             modelBuilder.Entity<Person>().HasData(tina, olle, karin, fatima);
-            modelBuilder.Entity<City>().HasData(stockholm, goteborg, berlin);
-            modelBuilder.Entity<Country>().HasData(sweden, germany);
+            modelBuilder.Entity<City>().HasData(stockholm, goteborg, berlin, frankfurt, chicago, houston, oslo);
+            modelBuilder.Entity<Country>().HasData(sweden, germany, usa, norway);
 
         }
     }

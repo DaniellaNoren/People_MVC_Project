@@ -2,35 +2,36 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model CitiesViewModel;
+@section styles {
+    <link href="~/css/citycountrystyle.css" rel="stylesheet" type="text/css" />
+}
 @{
     ViewBag.Title = "Cities";
-    bool edit = false;
 }
-<h1>Cities</h1>
-@foreach (CityViewModel city in @Model.Cities)
-{
-    if (!edit)
-    {
-        <partial name="CityList" model="@city" />
-        <button onclick="@edit = !edit">Edit</button>
-                }
-    else
-    {
+<h2 class="header">Cities</h2>
 
-    }
-
-}
-
-<form  asp-controller="Cities" asp-action="CreateCity" method="post">
-    <div class="input-label">
-        <label for="Name">Name:</label>
-        <input type="text" name="name" value="" />
+<div class="content">
+    <div>
+        <div class="headers">
+            <p>Name</p>
+            <p>Country</p>
+        </div>
+        @foreach (CityViewModel city in @Model.Cities)
+        {
+            <partial name="City" model="@city" />
+        }
     </div>
-    <div class="input-label">
-        <label for="CountryId">Country:</label>
-        <select name="CountryId" asp-items="ViewBag.Countries">
-        </select>
-    </div>
+    <form class="create-form" asp-controller="Cities" asp-action="CreateCity" method="post">
+        <div class="input-label">
+            <label for="Name">Name:</label>
+            <input type="text" name="name" value="" />
+        </div>
+        <div class="input-label">
+            <label for="CountryId">Country:</label>
+            <select name="CountryId" asp-items="ViewBag.Countries">
+            </select>
+        </div>
 
-    <input type="submit" name="submit" value="Create"/>
-</form>
+        <input class="submit-btn" type="submit" name="submit" value="Create" />
+    </form>
+</div>

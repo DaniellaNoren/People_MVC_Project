@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleMVC.Data.Entities.ViewModels;
 using PeopleMVC.Data.Services.Cities;
 using PeopleMVC.Data.Services.Countries;
+using PeopleMVC.Models.DataManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,20 @@ namespace PeopleMVC.Controllers
             return View(_service.All());
         }
 
+        [HttpGet("cities/{id}")]
+        public IActionResult GetCity(int id)
+        {
+            try
+            {
+                CityViewModel city = _service.FindBy(id);
+                return PartialView("City", city);
+            }
+            catch (EntityNotFoundException)
+            {
+                return RedirectToAction("CitiesIndex");
+            }
+        }
+
         [HttpPost]
         public IActionResult CreateCity(CreateCityViewModel city)
         {
@@ -35,6 +50,13 @@ namespace PeopleMVC.Controllers
                 _service.Add(city);
             }
 
+            return RedirectToAction("CitiesIndex");
+        }
+
+        [HttpPost("cities/del/{id}")]
+        public IActionResult DeleteCity(int id)
+        {
+            _service.Remove(id);
             return RedirectToAction("CitiesIndex");
         }
     }

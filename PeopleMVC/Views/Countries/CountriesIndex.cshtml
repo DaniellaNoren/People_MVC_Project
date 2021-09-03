@@ -1,15 +1,32 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
+@section styles {
+    <link href="~/css/citycountrystyle.css" rel="stylesheet" type="text/css" />
+}
 @model CountriesViewModel
 @{
     ViewBag.Title = "Countries";
 
 }
-<h1>Countries</h1>
+<h2 class="header">Countries</h2>
+<div class="content">
+    <div>
+        <div class="headers">
+            <p>Name</p>
+        </div>
+        @foreach (CountryViewModel country in @Model.Countries)
+        {
+            <partial name="Country" model="@country" />
+        }
 
-@foreach (CountryViewModel country in @Model.Countries)
-{
-<partial name="CountryList" model="@country" />
-}
+    </div>
+    <form class="create-form" asp-controller="Countries" asp-action="CreateCountry" method="post">
+        <div class="input-label">
+            <label for="Name">Name:</label>
+            <input type="text" name="name" value="" />
+        </div>
+
+        <input class="submit-btn" type="submit" name="submit" value="Create" />
+    </form>
+</div>

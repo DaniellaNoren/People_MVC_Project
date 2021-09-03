@@ -29,7 +29,6 @@ namespace PeopleMVC.Models.Entities
 
 
         [Required]
-        [StringLength(10)]
         public string SocialSecurityNr { get { return socialSecurityNr; } set { socialSecurityNr = value; } }
         private string socialSecurityNr;
 

@@ -1,5 +1,6 @@
 ﻿using PeopleMVC.Data.Entities;
 using PeopleMVC.Data.Entities.ViewModels;
+using PeopleMVC.Data.Entities.ViewModels.Country;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace PeopleMVC.Data.Services.Countries
 {
     public interface ICountryService
     {
-        CountryViewModel Add(CountryViewModel country);
+        CountryViewModel Add(CreateCountryViewModel country);
 
         CountriesViewModel All();
 

@@ -71,7 +71,7 @@ namespace PeopleMVC.Data.DataManagement
 
         public Person Update(Person person)
         {
-            _context.Attach(person);
+            _context.Update(person);
             _context.SaveChanges();
 
             return Read(person.Id);

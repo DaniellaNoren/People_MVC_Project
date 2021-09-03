@@ -13,6 +13,8 @@ namespace PeopleMVC.Data.Entities.ViewModels
 
         public int Id { get; set; }
 
+        public List<CityViewModel> Cities { get; set; }
+
         public CountryViewModel()
         {
 
