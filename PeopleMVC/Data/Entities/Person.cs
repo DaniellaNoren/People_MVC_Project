@@ -36,6 +36,9 @@ namespace PeopleMVC.Models.Entities
         public int Id { get { return id; } set { id = value; } }
         private int id;
 
+        public List<Language> Languages { get { return languages; } set { languages = value; } }
+        private List<Language> languages;
+
         public Person() { }
         public Person(string firstName, string lastName, 
             int cityId, string phoneNr, int id, string SSN) : this(id)
@@ -67,6 +70,14 @@ namespace PeopleMVC.Models.Entities
         public Person(int id)
         {
             this.Id = id;
+        }
+
+        public void AddLanguage(Language language)
+        {
+            if (this.Languages == null)
+                this.Languages = new List<Language>();
+
+            this.Languages.Add(language);
         }
     }
 }
