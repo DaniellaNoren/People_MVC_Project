@@ -9,8 +9,8 @@ using PeopleMVC.Data.DataBase;
 namespace PeopleMVC.Migrations
 {
     [DbContext(typeof(PeopleContext))]
-    [Migration("20210903075538_addcountriesandcities")]
-    partial class addcountriesandcities
+    [Migration("20210906075627_languageperson")]
+    partial class languageperson
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,6 +131,97 @@ namespace PeopleMVC.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PeopleMVC.Data.Entities.Language", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Swedish"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "German"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Italian"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Mandarin"
+                        });
+                });
+
+            modelBuilder.Entity("PeopleMVC.Data.Entities.LanguagePerson", b =>
+                {
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PersonId", "LanguageId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("LanguagePerson");
+
+                    b.HasData(
+                        new
+                        {
+                            PersonId = 1,
+                            LanguageId = 1
+                        },
+                        new
+                        {
+                            PersonId = 1,
+                            LanguageId = 2
+                        },
+                        new
+                        {
+                            PersonId = 2,
+                            LanguageId = 1
+                        },
+                        new
+                        {
+                            PersonId = 3,
+                            LanguageId = 1
+                        },
+                        new
+                        {
+                            PersonId = 4,
+                            LanguageId = 1
+                        },
+                        new
+                        {
+                            PersonId = 4,
+                            LanguageId = 2
+                        },
+                        new
+                        {
+                            PersonId = 4,
+                            LanguageId = 3
+                        });
+                });
+
             modelBuilder.Entity("PeopleMVC.Models.Entities.Person", b =>
                 {
                     b.Property<int>("Id")
@@ -217,6 +308,25 @@ namespace PeopleMVC.Migrations
                     b.Navigation("Country");
                 });
 
+            modelBuilder.Entity("PeopleMVC.Data.Entities.LanguagePerson", b =>
+                {
+                    b.HasOne("PeopleMVC.Data.Entities.Language", "Language")
+                        .WithMany("People")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PeopleMVC.Models.Entities.Person", "Person")
+                        .WithMany("Languages")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+
+                    b.Navigation("Person");
+                });
+
             modelBuilder.Entity("PeopleMVC.Models.Entities.Person", b =>
                 {
                     b.HasOne("PeopleMVC.Data.Entities.City", "City")
@@ -236,6 +346,16 @@ namespace PeopleMVC.Migrations
             modelBuilder.Entity("PeopleMVC.Data.Entities.Country", b =>
                 {
                     b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("PeopleMVC.Data.Entities.Language", b =>
+                {
+                    b.Navigation("People");
+                });
+
+            modelBuilder.Entity("PeopleMVC.Models.Entities.Person", b =>
+                {
+                    b.Navigation("Languages");
                 });
 #pragma warning restore 612, 618
         }

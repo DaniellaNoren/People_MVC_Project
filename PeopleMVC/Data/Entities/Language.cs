@@ -18,8 +18,8 @@ namespace PeopleMVC.Data.Entities
         [MaxLength(50)]
         public string Name { get { return name; } set { name = value; } }
 
-        private List<Person> people;
-        public List<Person> People { get { return people; } set { people = value; } }
+        private List<LanguagePerson> people;
+        public List<LanguagePerson> People { get { return people; } set { people = value; } }
 
         public Language()
         {
