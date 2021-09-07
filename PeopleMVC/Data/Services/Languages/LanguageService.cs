@@ -1,6 +1,7 @@
 ﻿using PeopleMVC.Data.DataManagement.Languages;
 using PeopleMVC.Data.Entities;
 using PeopleMVC.Data.Entities.ViewModels.Language;
+using PeopleMVC.Models.DataManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,9 @@ namespace PeopleMVC.Data.Services.Languages
         }
         public LanguageViewModel Add(CreateLanguageViewModel language)
         {
-            throw new NotImplementedException();
+            Language createdLanguage = new Language() { Name = language.LanguageName };
+            return GetViewModel(_repo.Create(createdLanguage));
+
         }
 
         public LanguagesViewModel All()
@@ -28,17 +31,19 @@ namespace PeopleMVC.Data.Services.Languages
 
         public LanguageViewModel Edit(int id, Language language)
         {
-            throw new NotImplementedException();
+            language.Id = id;
+            language = _repo.Update(language);
+            return GetViewModel(language);
         }
 
         public LanguageViewModel FindBy(int id)
         {
-            throw new NotImplementedException();
+            return GetViewModel(_repo.Read(id));
         }
 
         public bool Remove(int id)
         {
-            throw new NotImplementedException();
+            return _repo.Delete(_repo.Read(id));
         }
 
         public LanguageViewModel GetViewModel(Language language)

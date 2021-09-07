@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PeopleMVC.Data.Entities.ViewModels.Language;
 using PeopleMVC.Data.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,22 @@ namespace PeopleMVC.Controllers
         {
             this._service = service;
         }
-        public IActionResult Index()
+        public IActionResult LanguageIndex()
         {
-            return View();
+            return View(_service.All());
+        }
+
+        public IActionResult CreateLanguage(CreateLanguageViewModel language)
+        {
+            _service.Add(language);
+            return RedirectToAction("LanguageIndex");
+        }
+
+        public IActionResult RemoveLanguage(int id)
+        {
+            _service.Remove(id);
+            return RedirectToAction("LanguageIndex");
+
         }
     }
 }

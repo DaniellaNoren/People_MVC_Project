@@ -1,5 +1,7 @@
-﻿using PeopleMVC.Data.DataBase;
+﻿using Microsoft.EntityFrameworkCore;
+using PeopleMVC.Data.DataBase;
 using PeopleMVC.Data.Entities;
+using PeopleMVC.Models.DataManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +18,27 @@ namespace PeopleMVC.Data.DataManagement.Languages
             this._context = context;
         }
 
-        public Language Create(string languageName)
+        public Language Create(Language language)
         {
-            throw new NotImplementedException();
+            _context.Add(language);
+            _context.SaveChanges();
+
+            return Read(language.Id);
         }
 
         public bool Delete(Language language)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Languages.Remove(language);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public List<Language> Read()
@@ -33,12 +48,22 @@ namespace PeopleMVC.Data.DataManagement.Languages
 
         public Language Read(int id)
         {
-            throw new NotImplementedException();
+            Language language = _context.Languages.Include(l => l.People).FirstOrDefault(l => l.Id == id);
+
+            if (language != null)
+                return language;
+
+            throw new EntityNotFoundException("Language with id " + id + " not found.");
+
+
         }
 
         public Language Update(Language language)
         {
-            throw new NotImplementedException();
+            _context.Update(language);
+            _context.SaveChanges();
+
+            return Read(language.Id);
         }
     }
 }

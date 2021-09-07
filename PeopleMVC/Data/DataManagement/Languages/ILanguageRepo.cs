@@ -8,7 +8,7 @@ namespace PeopleMVC.Data.DataManagement.Languages
 {
     public interface ILanguageRepo
     {
-        Language Create(string languageName);
+        Language Create(Language language);
 
         List<Language> Read();
 
