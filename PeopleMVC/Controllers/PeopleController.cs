@@ -66,10 +66,7 @@ namespace PeopleMVC.Controllers
         [HttpPost("people/UpdatePerson")]
         public IActionResult UpdatePerson(Person person)
         {
-            person.Id = 1;
-
-        
-            _peopleService.Edit(1, person);
+            _peopleService.Edit(person.Id, person);
 
             return RedirectToAction("PeopleIndex");
         }

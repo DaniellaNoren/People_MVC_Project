@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PeopleMVC.Data.Entities.ViewModels.Language;
 using PeopleMVC.Data.Services.Languages;
+using PeopleMVC.Models.DataManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,18 @@ namespace PeopleMVC.Controllers
             _service.Remove(id);
             return RedirectToAction("LanguageIndex");
 
+        }
+
+        public IActionResult FindLanguage(int id)
+        {
+            try
+            {
+                return PartialView("Language", _service.FindBy(id));
+            }
+            catch (EntityNotFoundException)
+            {
+                return RedirectToAction("LanguageIndex");
+            }
         }
     }
 }
