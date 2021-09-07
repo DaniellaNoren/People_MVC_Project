@@ -20,7 +20,7 @@ namespace PeopleMVC.Models.DataManagement
            
         };
 
-        public Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr)
+        public Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr, List<Language> languages)
         {
             Person person = new Person(firstName, lastName, cityId, phoneNr, ++idCounter, socialSecurityNr);
             people.Add(person);

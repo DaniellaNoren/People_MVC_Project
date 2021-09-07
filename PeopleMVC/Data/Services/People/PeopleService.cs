@@ -1,5 +1,6 @@
 ﻿using PeopleMVC.Data.Entities;
 using PeopleMVC.Data.Entities.ViewModels;
+using PeopleMVC.Data.Entities.ViewModels.Language;
 using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Entities;
 using System;
@@ -20,7 +21,7 @@ namespace PeopleMVC.Models.Services
 
         public PersonViewModel Add(CreatePersonViewModel person)
         {
-            Person createdPerson = _repo.Create(person.FirstName, person.LastName, person.CityId, person.PhoneNr, person.SocialSecurityNr);
+            Person createdPerson = _repo.Create(person.FirstName, person.LastName, person.CityId, person.PhoneNr, person.SocialSecurityNr, person.LanguageIds.Select(id => new Language() { Id = id }).ToList());
             return GetPersonViewModelFromPerson(createdPerson);
         }
 
@@ -72,6 +73,7 @@ namespace PeopleMVC.Models.Services
             return new PersonViewModel()
             {
                 City = new CityViewModel() { Name = person.City.Name, Country = new CountryViewModel() { Name = person.City.Country.Name } },
+                Languages = new LanguagesViewModel() { Languages = person.Languages.Select(l => new LanguageViewModel() { LanguageName = l.Language.Name, Id = l.LanguageId }).ToList() },
                 FirstName = person.FirstName,
                 LastName = person.LastName,
                 Id = person.Id,

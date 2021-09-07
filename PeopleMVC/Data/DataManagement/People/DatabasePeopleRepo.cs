@@ -19,11 +19,18 @@ namespace PeopleMVC.Data.DataManagement
             _context = context;
         }
 
-        public Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr)
+        public Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr, List<Language> languages)
         {
             Person person = new Person(firstName, lastName,cityId, phoneNr, socialSecurityNr);
+
+            foreach (Language language in languages)
+            {
+                person.AddLanguage(language);
+            }
+
             _context.People.Add(person); 
             _context.SaveChanges();
+
             return Read(person.Id);
         }
 
@@ -45,12 +52,12 @@ namespace PeopleMVC.Data.DataManagement
 
         public List<Person> Read()
         {
-            return _context.People.Include(p => p.City).ThenInclude(c => c.Country).ToList();
+            return _context.People.Include(p => p.Languages).ThenInclude(lp => lp.Language).Include(p => p.City).ThenInclude(c => c.Country).ToList();
         }
 
         public Person Read(int id)
         {
-            Person person = _context.People.Include(p => p.City).ThenInclude(c => c.Country).FirstOrDefault(p => p.Id == id);
+            Person person = _context.People.Include(p => p.Languages).ThenInclude(lp => lp.Language).Include(p => p.City).ThenInclude(c => c.Country).FirstOrDefault(p => p.Id == id);
 
             if (person == null)
                 throw new EntityNotFoundException("Person with id " + id + " not found");

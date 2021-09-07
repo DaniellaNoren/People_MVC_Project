@@ -24,7 +24,7 @@ namespace PeopleMVC.Data.Entities.ViewModels
         [Required]
         [StringLength(10)]
         public string SocialSecurityNr { get; set; }
-        public List<LanguageViewModel> Languages { get; set; }
+        public List<int> LanguageIds { get; set; }
         public CreatePersonViewModel(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNumber)
         {
             this.FirstName = firstName;

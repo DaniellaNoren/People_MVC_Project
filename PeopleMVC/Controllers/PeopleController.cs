@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleMVC.Data.Entities.ViewModels;
 using PeopleMVC.Data.Services.Cities;
+using PeopleMVC.Data.Services.Languages;
 using PeopleMVC.Models.Entities;
 using PeopleMVC.Models.Services;
 using System;
@@ -16,21 +17,26 @@ namespace PeopleMVC.Controllers
     {
         private static IPeopleService _peopleService;
         private static ICityService _cityService;
+        private static ILanguageService _languageService { get; set; }
 
-        public PeopleController(IPeopleService peopleService, ICityService cityService)
+        public PeopleController(IPeopleService peopleService, ICityService cityService, ILanguageService languageService)
         {
             _peopleService = peopleService;
             _cityService = cityService;
+            _languageService = languageService;
         }
         public IActionResult PeopleIndex()
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "Id", "LanguageName");
+
             return View(_peopleService.All());
         }
         
         [HttpPost]
         public IActionResult AddPerson(CreatePersonViewModel person) 
         {
+
             if (ModelState.IsValid)
             {
                 _peopleService.Add(person);

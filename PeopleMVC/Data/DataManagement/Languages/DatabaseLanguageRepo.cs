@@ -28,7 +28,7 @@ namespace PeopleMVC.Data.DataManagement.Languages
 
         public List<Language> Read()
         {
-            throw new NotImplementedException();
+            return _context.Languages.ToList();
         }
 
         public Language Read(int id)

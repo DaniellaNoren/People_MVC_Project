@@ -13,4 +13,9 @@
     <p>@Model.City.Name @Model.City.Country.Name</p>
     <p>@Model.PhoneNr</p>
     <p>@Model.SocialSecurityNr</p>
+    @foreach (var language in @Model.Languages.Languages)
+    {
+        <p>@language.LanguageName</p>
+    }
+
 </div>

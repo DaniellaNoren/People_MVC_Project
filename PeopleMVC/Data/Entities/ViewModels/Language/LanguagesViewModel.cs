@@ -7,6 +7,11 @@ namespace PeopleMVC.Data.Entities.ViewModels.Language
 {
     public class LanguagesViewModel
     {
+        public List<LanguageViewModel> Languages { get; set; }
 
+        public LanguagesViewModel()
+        {
+
+        }
     }
 }

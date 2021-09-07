@@ -77,7 +77,7 @@ namespace PeopleMVC.Models.Entities
             if (this.Languages == null)
                 this.Languages = new List<LanguagePerson>();
 
-            this.Languages.Add(new LanguagePerson() { Language = language, LanguageId = language.Id, Person = this, PersonId = this.Id });
+            this.Languages.Add(new LanguagePerson() { LanguageId = language.Id });
         }
     }
 }

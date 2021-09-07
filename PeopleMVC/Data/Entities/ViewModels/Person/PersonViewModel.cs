@@ -13,7 +13,7 @@ namespace PeopleMVC.Data.Entities.ViewModels
        
         public CityViewModel City { get; set; }
 
-        public List<LanguageViewModel> Languages { get; set; }
+        public LanguagesViewModel Languages { get; set; }
     
         public string PhoneNr { get; set; }
         public string SocialSecurityNr { get; set; }

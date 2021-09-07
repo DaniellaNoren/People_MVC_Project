@@ -23,7 +23,7 @@ namespace PeopleMVC.Data.Services.Languages
 
         public LanguagesViewModel All()
         {
-            throw new NotImplementedException();
+            return new LanguagesViewModel() { Languages = _repo.Read().Select(l => GetViewModel(l)).ToList() };
         }
 
         public LanguageViewModel Edit(int id, Language language)
@@ -39,6 +39,11 @@ namespace PeopleMVC.Data.Services.Languages
         public bool Remove(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public LanguageViewModel GetViewModel(Language language)
+        {
+            return new LanguageViewModel { LanguageName = language.Name, Id = language.Id };
         }
     }
 }

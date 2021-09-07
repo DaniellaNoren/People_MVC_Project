@@ -13,6 +13,8 @@ using PeopleMVC.Data.Services.Countries;
 using PeopleMVC.Data.DataManagement.Countries;
 using PeopleMVC.Data.Services.Cities;
 using PeopleMVC.Data.DataManagement.Cities;
+using PeopleMVC.Data.Services.Languages;
+using PeopleMVC.Data.DataManagement.Languages;
 
 namespace PeopleMVC
 {
@@ -35,6 +37,8 @@ namespace PeopleMVC
             services.AddScoped<ICountryRepo, DatabaseCountryRepo>();  
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICityRepo, DatabaseCityRepo>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<ILanguageRepo, DatabaseLanguageRepo>();
 
             services.AddDbContext<PeopleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PeopleDB")).EnableSensitiveDataLogging());
 
