@@ -1,4 +1,5 @@
 ﻿using PeopleMVC.Data.Entities.ViewModels;
+using PeopleMVC.Data.Entities.ViewModels.Person;
 using PeopleMVC.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace PeopleMVC.Models.Services
 
         PersonViewModel FindBy(int id);
 
-        PersonViewModel Edit(int id, Person person);
+        PersonViewModel Edit(int id, EditPersonViewModel person);
 
         bool Remove(int id);
 

@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model PersonViewModel; 
+@{
+}
+<div class="row edit-person" id="person">
+    <form asp-controller="People" asp-action="UpdatePerson" class="row" id="person" method="post">
+        <input type="text" name="FirstName" for="FirstName" value="@Model.FirstName" />
+        <input type="text" name="LastName" for="LastName" value="@Model.LastName" />
+        <input type="text" name="Id" for="Id" value="@Model.Id" hidden />
+
+        <div class="input-label">
+            <label for="CityId">City:</label>
+            <select name="CityId" asp-items="ViewBag.Cities">
+                @* <option selected value="@Model.City.Id">@Model.City.Name</option>*@
+            </select>
+        </div>
+        <input type="text" name="PhoneNr" for="PhoneNr" value="@Model.PhoneNr" />
+        
+        <div class="input-label">
+            <label for="LanguageIds">Languages:</label>
+            <select name="LanguageIds" for="LanguageIds" multiple>
+                @foreach (SelectListItem language in ViewBag.Languages)
+                {
+                    
+                    if (Model.Languages.Languages.Exists(l => l.Id.ToString().Equals(language.Value)))
+                    {
+                        <option selected value="@language.Value">@language.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@language.Value">@language.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <input type="submit" name="name" value="Edit" />
+    </form>
+</div>

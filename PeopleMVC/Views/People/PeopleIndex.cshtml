@@ -1,17 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
+﻿
 @model PeopleViewModel;
 @section styles {
     <link href="~/css/peopleViewStyle.css" rel="stylesheet" type="text/css" />
 }
+@section scripts {
+    <script type="text/javascript" src="~/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/editScript.js"></script>
+} 
 @{
     ViewBag.Title = "People";
 }
 
 <div class="content">
-    
+
     <div id="people-table">
 
         <h2>People</h2>
@@ -19,16 +20,28 @@
             <p class="header">Firstname</p>
             <p class="header">Lastname</p>
             <p class="header">City</p>
-            <p class="header">Phonenumber</p> 
+            <p class="header">Phonenumber</p>
             <p class="header">SSN</p>
             <p class="header">Action</p>
         </div>
+    
+
+        <button id="edit-btn">
+            Edit
+        </button>
 
         @foreach (var p in Model.People)
         {
+
+
             <div id="person-row">
-                <partial name="~/Views/Shared/PersonView.cshtml" model="p" />
-                <a asp-controller="People" asp-action="RemovePerson" asp-route-id="@p.Id">Remove</a>
+
+                <partial name="~/Views/Shared/PersonView.cshtml" model="p"/>
+
+                <partial name="EditPerson" model="p"/>
+
+                <a asp-controller="People" asp-action="RemovePerson" asp-route-id="p.Id">Remove</a>
+
             </div>
         }
 
@@ -95,13 +108,13 @@
                     <input type="text" name="LastName" value="Last name" />
                 </div>
 
-         
+
                 <div class="input-label">
                     <label for="CityId">City:</label>
                     <select name="CityId" asp-items="ViewBag.Cities">
                     </select>
                 </div>
-                
+
                 <div class="input-label">
                     <label for="LanguageIds">Languages:</label>
                     <select name="LanguageIds" asp-items="ViewBag.Languages" multiple>
@@ -112,7 +125,7 @@
                     <label for="PhoneNr">Phonenumber:</label>
                     <input type="text" name="PhoneNr" value="Phone number" />
                 </div>
-                
+
                 <div class="input-label">
                     <label for="SocialSecurityNr">Social security number:</label>
                     <input type="text" name="SocialSecurityNr" value="YYMMDDXXXX" />

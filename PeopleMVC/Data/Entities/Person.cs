@@ -21,7 +21,8 @@ namespace PeopleMVC.Models.Entities
         public City City { get { return city; } set { city = value; } }
         private City city;
 
-        public int CityId { get; set; }
+        public int CityId { get { return cityId; } set { cityId = value; } }
+        private int cityId;
 
         [Phone]
         public string PhoneNr { get { return phoneNr; } set { phoneNr = value; } }

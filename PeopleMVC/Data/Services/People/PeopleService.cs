@@ -1,6 +1,7 @@
 ﻿using PeopleMVC.Data.Entities;
 using PeopleMVC.Data.Entities.ViewModels;
 using PeopleMVC.Data.Entities.ViewModels.Language;
+using PeopleMVC.Data.Entities.ViewModels.Person;
 using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Entities;
 using System;
@@ -30,11 +31,12 @@ namespace PeopleMVC.Models.Services
             return new PeopleViewModel() { People = _repo.Read().Select(p => GetPersonViewModelFromPerson(p)).ToList() };
         }
 
-        public PersonViewModel Edit(int id, Person person)
+        public PersonViewModel Edit(int id, EditPersonViewModel person)
         {
             person.Id = id;
-            person = _repo.Update(person);
-            return GetPersonViewModelFromPerson(person);
+            Person editedPerson = new Person() { Id = id, FirstName = person.FirstName, LastName = person.LastName, CityId = person.CityId, PhoneNr = person.PhoneNr, Languages = person.LanguageIds.Select(id => new LanguagePerson() { LanguageId = id }).ToList() };
+            editedPerson = _repo.Update(editedPerson);
+            return GetPersonViewModelFromPerson(editedPerson);
         }
 
         public PeopleViewModel FindBy(PeopleViewModel search)
@@ -72,7 +74,7 @@ namespace PeopleMVC.Models.Services
         {
             return new PersonViewModel()
             {
-                City = new CityViewModel() { Name = person.City.Name, Country = new CountryViewModel() { Name = person.City.Country.Name } },
+                City = new CityViewModel() { Name = person.City.Name, Id = person.City.Id, Country = new CountryViewModel() { Name = person.City.Country.Name } },
                 Languages = new LanguagesViewModel() { Languages = person.Languages.Select(l => new LanguageViewModel() { LanguageName = l.Language.Name, Id = l.LanguageId }).ToList() },
                 FirstName = person.FirstName,
                 LastName = person.LastName,

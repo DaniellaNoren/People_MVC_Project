@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleMVC.Data.Entities.ViewModels;
+using PeopleMVC.Data.Entities.ViewModels.Person;
 using PeopleMVC.Data.Services.Cities;
 using PeopleMVC.Data.Services.Languages;
 using PeopleMVC.Models.Entities;
@@ -64,7 +65,7 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost("people/UpdatePerson")]
-        public IActionResult UpdatePerson(Person person)
+        public IActionResult UpdatePerson(EditPersonViewModel person)
         {
             _peopleService.Edit(person.Id, person);
 
