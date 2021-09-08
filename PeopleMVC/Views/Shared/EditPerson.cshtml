@@ -12,10 +12,22 @@
 
         <div class="input-label">
             <label for="CityId">City:</label>
-            <select name="CityId" asp-items="ViewBag.Cities">
-                @* <option selected value="@Model.City.Id">@Model.City.Name</option>*@
+            <select for="CityId" name="CityId">
+                @foreach (SelectListItem city in ViewBag.Cities)
+                {
+
+                    if (Model.City.Id.ToString().Equals(city.Value))
+                    {
+                        <option selected value="@city.Value">@city.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@city.Value">@city.Text</option>
+                    }
+                }
             </select>
         </div>
+
         <input type="text" name="PhoneNr" for="PhoneNr" value="@Model.PhoneNr" />
         
         <div class="input-label">

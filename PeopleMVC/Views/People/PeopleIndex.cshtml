@@ -40,7 +40,7 @@
 
                 <partial name="EditPerson" model="p"/>
 
-                <a asp-controller="People" asp-action="RemovePerson" asp-route-id="p.Id">Remove</a>
+                <a asp-controller="People" asp-action="RemovePerson" asp-route-id="@p.Id">Remove</a>
 
             </div>
         }
