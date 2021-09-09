@@ -73,9 +73,9 @@ namespace PeopleMVC.Controllers
         [HttpPost("people/UpdatePerson")]
         public IActionResult UpdatePerson(EditPersonViewModel person)
         {
-            _peopleService.Edit(person.Id, person);
+            PersonViewModel editedPerson = _peopleService.Edit(person.Id, person);
 
-            return RedirectToAction("PeopleIndex");
+            return PartialView("PersonView", editedPerson);
         }
 
     }

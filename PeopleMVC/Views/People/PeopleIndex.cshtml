@@ -11,133 +11,129 @@
     ViewBag.Title = "People";
 }
 
+<table id="people-table" class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">City</th>
+            <th scope="col">Phonenumber</th>
+            <th scope="col">SSN</th>
+            <th scope="col">Languages</th>
+            <th scope="col">Action</th>
+            <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
 
-
-    <button id="edit-btn">
-        Edit
-    </button>
-
-    <table id="people-table" class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Firstname</th>
-                <th scope="col">Lastname</th>
-                <th scope="col">City</th>
-                <th scope="col">Phonenumber</th>
-                <th scope="col">SSN</th>
-                <th scope="col">Languages</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach (var p in Model.People)
-            {
-
+        @foreach (var p in Model.People)
+        {
+            <tr class="person-row" id="person-row-@p.Id">
                 <partial name="~/Views/Shared/PersonView.cshtml" model="p" />
-
+            </tr>
+            <tr class="person-row edit-person" id="edit-person-@p.Id">
                 <partial name="EditPerson" model="p" />
+            </tr>
+        }
 
-            }
+    </tbody>
 
-        </tbody>
+</table>
 
-    </table>
+<div id="forms">
 
-    <div id="forms">
+    <form id="sort-people" asp-controller="People" asp-action="SortPeople" method="post">
 
-        <form id="sort-people" asp-controller="People" asp-action="SortPeople" method="post">
+        <div class="form-group">
+            <label for="fields">Sort by:</label>
+            <input class="form-select" list="fields" name="FieldName" id="FieldName">
 
-            <div class="form-group">
-                <label for="fields">Sort by:</label>
-                <input class="form-select" list="fields" name="FieldName" id="FieldName">
+            <datalist id="fields">
+                <option value="FirstName" />
+                <option value="LastName" />
+            </datalist>
+        </div>
 
-                <datalist id="fields">
-                    <option value="FirstName" />
-                    <option value="LastName" />
-                </datalist>
-            </div>
-
-            <div class="form-group">
-                <label for="Alphabetical">Alphabetical:</label>
-                <input class="form-check" type="checkbox" name="Alphabetical" id="Alphabetical" value="true" checked />
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit" value="Sort" >Sort</button>
-            </div>
-        </form>
-
-
-
-        <form id="filter-people" asp-controller="People" asp-action="FilterPeople" method="post">
-
-            <div class="form-group">
-                <label for="fields">Filter by:</label>
-                <input class="form-select" list="fields" asp-for="FieldName" name="FieldName" id="field">
-                <datalist id="fields">
-                    <option value="City" />
-                    <option value="FirstName" />
-                    <option value="LastName" />
-                </datalist>
-            </div>
-
-            <div class="form-group">
-                <label for="SearchTerm">Search term:</label>
-                <input class="form-control" type="text" asp-for="SearchTerm" />
-            </div>
-
-            <div class="form-group">
-                <label for="CaseSensitive">Case-sensitive:</label>
-                <input class="form-check" type="checkbox" asp-for="CaseSensitive" />
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit" value="Filter" >Filter</button>
-            </div>
-        </form>
+        <div class="form-group">
+            <label for="Alphabetical">Alphabetical:</label>
+            <input class="form-check" type="checkbox" name="Alphabetical" id="Alphabetical" value="true" checked />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" value="Sort">Sort</button>
+        </div>
+    </form>
 
 
-        <form id="add-person" asp-controller="People" asp-action="AddPerson" method="post">
-            <div class="form-group">
-                <label for="FirstName">Firstname:</label>
-                <input class="form-control" type="text" name="FirstName" value="First name" />
-            </div>
 
-            <div class="form-group">
-                <label for="LastName">Lastname:</label>
-                <input class="form-control" type="text" name="LastName" value="Last name" />
-            </div>
+    <form id="filter-people" asp-controller="People" asp-action="FilterPeople" method="post">
 
-            <div class="form-group">
-                <label for="CityId">City:</label>
-                <select class="form-select" name="CityId" asp-items="ViewBag.Cities">
-                </select>
-            </div>
+        <div class="form-group">
+            <label for="fields">Filter by:</label>
+            <input class="form-select" list="fields" asp-for="FieldName" name="FieldName" id="field">
+            <datalist id="fields">
+                <option value="City" />
+                <option value="FirstName" />
+                <option value="LastName" />
+            </datalist>
+        </div>
 
-            <div class="form-group">
-                <label for="LanguageIds">Languages:</label>
-                <select class="form-select" name="LanguageIds" asp-items="ViewBag.Languages" multiple>
-                </select>
-            </div>
+        <div class="form-group">
+            <label for="SearchTerm">Search term:</label>
+            <input class="form-control" type="text" asp-for="SearchTerm" />
+        </div>
 
-            <div class="form-group">
-                <label for="PhoneNr">Phonenumber:</label>
-                <input class="form-control" type="text" name="PhoneNr" value="Phone number" />
-            </div>
+        <div class="form-group">
+            <label for="CaseSensitive">Case-sensitive:</label>
+            <input class="form-check" type="checkbox" asp-for="CaseSensitive" />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" value="Filter">Filter</button>
+        </div>
+    </form>
 
-            <div class="form-group">
-                <label for="SocialSecurityNr">Social security number:</label>
-                <input class="form-control" type="text" name="SocialSecurityNr" value="YYMMDDXXXX" />
-            </div>
 
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit" name="name" value="Create" >Create</button>
-            </div>
-        </form>
+    <form id="add-person" asp-controller="People" asp-action="AddPerson" method="post">
+        <div class="form-group">
+            <label for="FirstName">Firstname:</label>
+            <input class="form-control" type="text" name="FirstName" value="First name" />
+        </div>
 
-    </div>
+        <div class="form-group">
+            <label for="LastName">Lastname:</label>
+            <input class="form-control" type="text" name="LastName" value="Last name" />
+        </div>
 
-    @if (ViewBag.ErrorMsg != null)
-    {
-        <h2>@ViewBag.ErrorMsg</h2>
-    }
+        <div class="form-group">
+            <label for="CityId">City:</label>
+            <select class="form-select" name="CityId" asp-items="ViewBag.Cities">
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="LanguageIds">Languages:</label>
+            <select class="form-select" name="LanguageIds" asp-items="ViewBag.Languages" multiple>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="PhoneNr">Phonenumber:</label>
+            <input class="form-control" type="text" name="PhoneNr" value="Phone number" />
+        </div>
+
+        <div class="form-group">
+            <label for="SocialSecurityNr">Social security number:</label>
+            <input class="form-control" type="text" name="SocialSecurityNr" value="YYMMDDXXXX" />
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" name="name" value="Create">Create</button>
+        </div>
+    </form>
+
+</div>
+
+@if (ViewBag.ErrorMsg != null)
+{
+    <h2>@ViewBag.ErrorMsg</h2>
+}
 

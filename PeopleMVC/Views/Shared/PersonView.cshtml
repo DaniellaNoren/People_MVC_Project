@@ -7,7 +7,7 @@
 @{
 }
 
-<tr>
+
     <td>@Model.FirstName</td>
     <td>@Model.LastName</td>
     <td>@Model.City.Name @Model.City.Country.Name</td>
@@ -19,5 +19,11 @@
             <p> @language.LanguageName</p>
         }
     </td>
-    <td><a asp-controller="People" asp-action="RemovePerson" asp-route-id="@Model.Id">Remove</a></td>
-</tr>
+    <td><a class="btn btn-danger" asp-controller="People" asp-action="RemovePerson" asp-route-id="@Model.Id">Remove</a></td>
+    <td>
+        <button id="@Model.Id" class="edit-btn btn btn-primary">
+            Edit
+        </button>
+    </td>
+
+

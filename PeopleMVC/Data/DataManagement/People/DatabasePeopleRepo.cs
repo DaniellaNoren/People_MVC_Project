@@ -24,11 +24,14 @@ namespace PeopleMVC.Data.DataManagement
         {
             Person person = new Person(firstName, lastName, cityId, phoneNr, socialSecurityNr);
 
-            foreach (Language language in languages)
+            if(languages != null)
             {
-                person.AddLanguage(language);
+                foreach (Language language in languages)
+                {
+                    person.AddLanguage(language);
+                }
             }
-
+           
             _context.People.Add(person);
             _context.SaveChanges();
 
@@ -46,7 +49,6 @@ namespace PeopleMVC.Data.DataManagement
             {
                 return false;
             }
-
 
             return true;
         }

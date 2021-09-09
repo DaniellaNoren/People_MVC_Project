@@ -22,7 +22,7 @@ namespace PeopleMVC.Models.Services
 
         public PersonViewModel Add(CreatePersonViewModel person)
         {
-            Person createdPerson = _repo.Create(person.FirstName, person.LastName, person.CityId, person.PhoneNr, person.SocialSecurityNr, person.LanguageIds.Select(id => new Language() { Id = id }).ToList());
+            Person createdPerson = _repo.Create(person.FirstName, person.LastName, person.CityId, person.PhoneNr, person.SocialSecurityNr, person.LanguageIds != null ? person.LanguageIds.Select(id => new Language() { Id = id }).ToList() : null);
             return GetPersonViewModelFromPerson(createdPerson);
         }
 
