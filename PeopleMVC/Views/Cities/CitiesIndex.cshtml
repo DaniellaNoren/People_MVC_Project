@@ -8,35 +8,33 @@
 @{
     ViewBag.Title = "Cities";
 }
-<h2 class="header">Cities</h2>
 
-<div class="content">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Country</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (CityViewModel city in @Model.Cities)
-            {
-                <partial name="City" model="@city" />
-            }
-        </tbody>
-    </table>
-    <form class="create-form" asp-controller="Cities" asp-action="CreateCity" method="post">
-        <div class="input-label">
-            <label for="Name">Name:</label>
-            <input type="text" name="name" value="" />
-        </div>
-        <div class="input-label">
-            <label for="CountryId">Country:</label>
-            <select name="CountryId" asp-items="ViewBag.Countries">
-            </select>
-        </div>
-
-        <input class="submit-btn" type="submit" name="submit" value="Create" />
-    </form>
-</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Country</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (CityViewModel city in @Model.Cities)
+        {
+            <partial name="City" model="@city" />
+        }
+    </tbody>
+</table>
+<form class="create-form" asp-controller="Cities" asp-action="CreateCity" method="post">
+    <div class="form-group">
+        <label for="Name" class="form-text">Name:</label>
+        <input class="form-control" type="text" name="name" value="" />
+    </div>
+    <div class="form-group">
+        <label for="CountryId" class="form-text">Country:</label>
+        <select class="form-select" name="CountryId" asp-items="ViewBag.Countries">
+        </select>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit" name="submit" value="Create">Create</button>
+    </div>
+</form>

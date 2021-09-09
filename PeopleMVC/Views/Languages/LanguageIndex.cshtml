@@ -9,29 +9,28 @@
     ViewBag.Title = "Languages";
 }
 
-<h2 class="header">Languages</h2>
-<div class="content">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (LanguageViewModel language in @Model.Languages)
-            {
-                <partial name="Language" model="@language" />
-            }
-        </tbody>
-    </table>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (LanguageViewModel language in @Model.Languages)
+        {
+            <partial name="Language" model="@language" />
+        }
+    </tbody>
+</table>
 
-    <form class="create-form" asp-controller="Languages" asp-action="CreateLanguage" method="post">
-        <div class="input-label">
-            <label for="LanguageName">Name:</label>
-            <input type="text" name="LanguageName" value="" />
-        </div>
+<form class="create-form" asp-controller="Languages" asp-action="CreateLanguage" method="post">
+    <div class="form-group">
+        <label class="form-text" for="LanguageName">Name:</label>
+        <input class="form-control" type="text" name="LanguageName" value="" />
+    </div>
 
-        <input class="submit-btn" type="submit" name="submit" value="Create" />
-    </form>
-</div>
+    <button class="btn btn-primary" type="submit" name="submit" value="Create" >Create</button>
+
+</form>
+

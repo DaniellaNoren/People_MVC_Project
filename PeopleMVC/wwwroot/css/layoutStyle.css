@@ -3,3 +3,42 @@
     background-color: #fff1e6;
 }
 */
+.navbar{
+    border-bottom: 1px solid gray;
+}
+form{
+    width: 50%;
+    padding: 2vw;
+    border: 1px solid black;
+}
+#forms{
+    display: grid;
+    grid-template-rows: 1vh 25vh 1vh 30vh;
+    grid-template-columns: auto auto;
+}
+#filter-people{
+    grid-column: 3/4;
+    grid-row: 2/3;
+    height: 25vh;
+}
+#sort-people{
+    grid-column: 3/4;
+    grid-row: 4/5;
+    height: 20vh;
+}
+#add-person{
+    grid-row: 1/-1;
+    grid-column: 2/3;
+    height: 50vh;
+}
+.create-form{
+    padding-bottom: 2vh;
+    max-height: 35vh;
+    min-height: 20vh;
+    margin-right: auto;
+    margin-left: auto;
+}
+.btn{
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}

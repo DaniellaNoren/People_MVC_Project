@@ -48,6 +48,9 @@ namespace PeopleMVC.Controllers
 
         public IActionResult FilterPeople(PeopleViewModel searchTerms)
         {
+            ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "Id", "LanguageName");
+
             return View("PeopleIndex", _peopleService.FindBy(searchTerms)); 
         }
 
@@ -61,6 +64,9 @@ namespace PeopleMVC.Controllers
         [HttpPost]
         public IActionResult SortPeople(SortingModel sortingModel)
         {
+            ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
+            ViewBag.Languages = new SelectList(_languageService.All().Languages, "Id", "LanguageName");
+
             return View("PeopleIndex", _peopleService.SortBy(sortingModel.FieldName, sortingModel.Alphabetical));
         }
 
