@@ -5,13 +5,17 @@
 @{
 }
 
-<div class="values ">
-    <p>@Model.Name</p>
-</div>
-<div id="cities">
-    <h5>Cities:</h5>
-    @foreach(CityViewModel city in @Model.Cities){
-    <p>@city.Name</p>
-    }
-</div>
+
+<tr>
+    <td>@Model.Name</td>
+    <td>
+        @foreach (CityViewModel city in @Model.Cities)
+        {
+            <p>@city.Name</p>
+        }
+    </td>
+    <td><a asp-controller="Countries" asp-action="DeleteCountry" asp-route-id="@Model.Id">Remove</a></td>
+</tr>
+
+
 

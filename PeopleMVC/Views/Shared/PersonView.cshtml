@@ -7,15 +7,17 @@
 @{
 }
 
-<div class="row person-row" id="person">
-    <p>@Model.FirstName</p>
-    <p>@Model.LastName</p>
-    <p>@Model.City.Name @Model.City.Country.Name</p>
-    <p>@Model.PhoneNr</p>
-    <p>@Model.SocialSecurityNr</p>
-    @foreach (var language in @Model.Languages.Languages)
-    {
-        <p>@language.LanguageName</p>
-    }
-
-</div>
+<tr>
+    <td>@Model.FirstName</td>
+    <td>@Model.LastName</td>
+    <td>@Model.City.Name @Model.City.Country.Name</td>
+    <td>@Model.PhoneNr</td>
+    <td>@Model.SocialSecurityNr</td>
+    <td>
+        @foreach (var language in @Model.Languages.Languages)
+        {
+            <p> @language.LanguageName</p>
+        }
+    </td>
+    <td><a asp-controller="People" asp-action="RemovePerson" asp-route-id="@Model.Id">Remove</a></td>
+</tr>

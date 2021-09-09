@@ -5,6 +5,7 @@
 @{
 }
 
-<div class="values">
-    <p>@Model.LanguageName</p>
-</div>
+<tr>
+    <td>@Model.LanguageName</td>
+    <td><a asp-controller="Languages" asp-action="RemoveLanguage" asp-route-id="@Model.Id">Remove</a></td>
+</tr>

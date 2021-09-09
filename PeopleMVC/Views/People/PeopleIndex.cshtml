@@ -12,41 +12,36 @@
 }
 
 <div class="content">
+    <h2>People</h2> 
+    <button id="edit-btn">
+        Edit
+    </button>
+    <table id="people-table" class="table">
+        <thead>
+            <tr>
+                <th scope="col">Firstname</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">City</th>
+                <th scope="col">Phonenumber</th>
+                <th scope="col">SSN</th>
+                <th scope="col">Languages</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
 
-    <div id="people-table">
+            @foreach (var p in Model.People)
+            {
 
-        <h2>People</h2>
-        <div id="people-header">
-            <p class="header">Firstname</p>
-            <p class="header">Lastname</p>
-            <p class="header">City</p>
-            <p class="header">Phonenumber</p>
-            <p class="header">SSN</p>
-            <p class="header">Action</p>
-        </div>
-    
+                    <partial name="~/Views/Shared/PersonView.cshtml" model="p" />
 
-        <button id="edit-btn">
-            Edit
-        </button>
+                    <partial name="EditPerson" model="p" />
+   
+            }
+           
+        </tbody>
 
-        @foreach (var p in Model.People)
-        {
-
-
-            <div id="person-row">
-
-                <partial name="~/Views/Shared/PersonView.cshtml" model="p"/>
-
-                <partial name="EditPerson" model="p"/>
-
-                <a asp-controller="People" asp-action="RemovePerson" asp-route-id="@p.Id">Remove</a>
-
-            </div>
-        }
-
-
-    </div>
+    </table>
 
     <div id="forms">
         <div class="form-holder">

@@ -11,16 +11,21 @@
 <h2 class="header">Cities</h2>
 
 <div class="content">
-    <div>
-        <div class="headers">
-            <p>Name</p>
-            <p>Country</p>
-        </div>
-        @foreach (CityViewModel city in @Model.Cities)
-        {
-            <partial name="City" model="@city" />
-        }
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Country</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CityViewModel city in @Model.Cities)
+            {
+                <partial name="City" model="@city" />
+            }
+        </tbody>
+    </table>
     <form class="create-form" asp-controller="Cities" asp-action="CreateCity" method="post">
         <div class="input-label">
             <label for="Name">Name:</label>
