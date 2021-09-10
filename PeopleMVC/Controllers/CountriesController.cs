@@ -44,7 +44,7 @@ namespace PeopleMVC.Controllers
             return RedirectToAction("CountriesIndex");
         }
 
-        [HttpPost("/countries/del/{id}")]
+        [HttpGet("/countries/del/{id}")]
         public IActionResult DeleteCountry(int id)
         {
             _service.Remove(id);
