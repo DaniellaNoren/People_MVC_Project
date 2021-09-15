@@ -10,13 +10,13 @@ namespace PeopleMVC.Data.Services.User
 {
     public interface IUserService
     { 
-        UserModel Add(CreateUserViewModel person);
+        UserViewModel Add(CreateUserViewModel person);
 
         UsersViewModel All();
 
-        UserModel FindBy(string userName);
+        UserViewModel FindBy(string userName);
 
-        UserModel Edit(string id, CreateUserViewModel person);
+        UserViewModel Edit(string id, CreateUserViewModel person);
 
         bool Remove(int id);
 

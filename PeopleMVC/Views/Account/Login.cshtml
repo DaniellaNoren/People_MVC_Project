@@ -13,8 +13,11 @@
         <label for="Password">Password:</label>
         <input class="form-control" type="password" asp-for="Password" />
     </div>
-    <input class="form-control" type="text" asp-for="ReturnUrl"  value="@Model.ReturnUrl" hidden/>
+    <input class="form-control" type="text" asp-for="ReturnUrl" value="@Model.ReturnUrl" hidden />
     <div class="form-group">
         <button class="btn btn-primary" type="submit" value="Login">Login</button>
     </div>
 </form>
+
+<a class="nav-link" asp-controller="Account"
+   asp-action="Register">Register</a>

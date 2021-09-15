@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using PeopleMVC.Data.Entities.ViewModels.User;
+@model CreateUserViewModel;
+@section scripts {
+    <script type="text/javascript" src="~/js/UserScript.js"></script>
+}
+@{
+}
+<form asp-action="Register" method="post">
+    <div class="form-group">
+        <label for="UserName">Username:</label>
+        <input class="form-control" type="text" asp-for="UserName" />
+    </div>
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        <input class="form-control" type="email" asp-for="Email" />
+    </div>
+    <div class="form-group">
+        <label for="FirstName">Firstname:</label>
+        <input class="form-control" type="text" asp-for="FirstName" />
+    </div>
+    <div class="form-group">
+        <label for="LastName">Lastname:</label>
+        <input class="form-control" type="text" asp-for="LastName" />
+    </div>
+    <div class="form-group">
+        <label for="Password">Birthday:</label>
+        <input class="form-control" type="date" asp-for="Birthday" />
+    </div>
+    <div class="form-group">
+        <label for="Password">Password:</label>
+        <input class="form-control" type="password" asp-for="Password" id="password" />
+        <input class="form-control" type="password" id="password-repeat" />
+        <p id="password-msg"></p>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit" value="Register" id="reg-btn">Register</button>
+    </div>
+</form>

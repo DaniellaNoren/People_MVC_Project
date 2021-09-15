@@ -20,17 +20,26 @@ namespace PeopleMVC.Controllers
         {
             this._userService = userService;
         }
-        
+
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = "/people/peopleindex")
+        public IActionResult Register()
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl});
+            return View();
         }
 
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = "/people/peopleindex")
+        [HttpPost]
+        public IActionResult Register(CreateUserViewModel user, string returnUrl = "/people/peopleindex")
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+            _userService.Add(user);
+
+            return Redirect(returnUrl);
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View(new LoginViewModel() { ReturnUrl = "/people/peopleindex" } );
         }
 
         [HttpPost]

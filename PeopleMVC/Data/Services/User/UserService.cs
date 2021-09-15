@@ -21,9 +21,51 @@ namespace PeopleMVC.Data.Services.User
             this._userManager = userManager;
         }
 
-        public UserModel Add(CreateUserViewModel person)
+        public UserViewModel Add(CreateUserViewModel user)
         {
-            throw new NotImplementedException();
+            ApplicationUser createdUser = GetUserFromModel(user);
+
+            IdentityResult result = _userManager.CreateAsync(createdUser, user.Password).Result;
+
+            if (result.Succeeded)
+            {
+                _signInManager.SignInAsync(createdUser, true);
+            }
+            else
+            {
+                
+            }
+           
+
+            return GetModelFromUser(createdUser);
+        }
+
+        private UserViewModel GetModelFromUser(ApplicationUser user)
+        {
+            UserViewModel model = new UserViewModel()
+            {
+                UserName = user.UserName,
+                FullName = user.FirstName + " " + user.LastName,
+                Email = user.Email,
+                Birthday = user.Birthday
+            };
+
+            return model;
+        }
+
+        private ApplicationUser GetUserFromModel(CreateUserViewModel user)
+        {
+            ApplicationUser createdUser = new ApplicationUser()
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Birthday = user.Birthday,
+                UserName = user.UserName
+            };
+
+            return createdUser;
+
         }
 
         public UsersViewModel All()
@@ -31,12 +73,12 @@ namespace PeopleMVC.Data.Services.User
             throw new NotImplementedException();
         }
 
-        public UserModel Edit(string id, CreateUserViewModel person)
+        public UserViewModel Edit(string id, CreateUserViewModel person)
         {
             throw new NotImplementedException();
         }
 
-        public UserModel FindBy(string userName)
+        public UserViewModel FindBy(string userName)
         {
             throw new NotImplementedException();
         }
