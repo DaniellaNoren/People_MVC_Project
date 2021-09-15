@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeopleMVC.Data.DataBase;
 
 namespace PeopleMVC.Migrations
 {
     [DbContext(typeof(PeopleContext))]
-    partial class PeopleContextModelSnapshot : ModelSnapshot
+    [Migration("20210831111218_city_country")]
+    partial class city_country
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,9 +39,6 @@ namespace PeopleMVC.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Cities");
 
                     b.HasData(
@@ -60,30 +59,6 @@ namespace PeopleMVC.Migrations
                             Id = 3,
                             CountryId = 2,
                             Name = "Berlin"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CountryId = 2,
-                            Name = "Frankfurt"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CountryId = 3,
-                            Name = "Chicago"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CountryId = 3,
-                            Name = "Houston"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CountryId = 4,
-                            Name = "Oslo"
                         });
                 });
 
@@ -101,9 +76,6 @@ namespace PeopleMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Countries");
 
                     b.HasData(
@@ -116,16 +88,6 @@ namespace PeopleMVC.Migrations
                         {
                             Id = 2,
                             Name = "Germany"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "USA"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Norway"
                         });
                 });
 
@@ -154,14 +116,14 @@ namespace PeopleMVC.Migrations
 
                     b.Property<string>("SocialSecurityNr")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasAlternateKey("SocialSecurityNr");
 
-                    b.HasIndex("SocialSecurityNr")
-                        .IsUnique();
+                    b.HasIndex("CityId");
 
                     b.ToTable("People");
 

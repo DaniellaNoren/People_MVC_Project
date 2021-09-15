@@ -9,6 +9,10 @@ using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Services;
 using Microsoft.Extensions.Configuration;
 using PeopleMVC.Data.DataManagement;
+using PeopleMVC.Data.Services.Countries;
+using PeopleMVC.Data.DataManagement.Countries;
+using PeopleMVC.Data.Services.Cities;
+using PeopleMVC.Data.DataManagement.Cities;
 
 namespace PeopleMVC
 {
@@ -26,9 +30,13 @@ namespace PeopleMVC
         {
             services.AddMvc();
             services.AddScoped<IPeopleService, PeopleService>();
-            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
+            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();  
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICountryRepo, DatabaseCountryRepo>();  
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<ICityRepo, DatabaseCityRepo>();
 
-            services.AddDbContext<PeopleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PeopleDB")));
+            services.AddDbContext<PeopleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PeopleDB")).EnableSensitiveDataLogging());
 
             services.AddCors(options =>
             {

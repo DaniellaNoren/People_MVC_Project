@@ -35,8 +35,8 @@ namespace PeopleMVC.Controllers
         {
             try
             {
-                Person person = _service.FindBy(id);
-                return PartialView("PeopleList", new PeopleViewModel() { People = new List<Person>() { person } });
+                PersonViewModel person = _service.FindBy(id);
+                return PartialView("PeopleList", new PeopleViewModel() { People = new List<PersonViewModel>() { person } });
             }
             catch (EntityNotFoundException)
             {

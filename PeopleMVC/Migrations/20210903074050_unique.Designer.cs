@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeopleMVC.Data.DataBase;
 
 namespace PeopleMVC.Migrations
 {
     [DbContext(typeof(PeopleContext))]
-    partial class PeopleContextModelSnapshot : ModelSnapshot
+    [Migration("20210903074050_unique")]
+    partial class unique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,30 +62,6 @@ namespace PeopleMVC.Migrations
                             Id = 3,
                             CountryId = 2,
                             Name = "Berlin"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CountryId = 2,
-                            Name = "Frankfurt"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CountryId = 3,
-                            Name = "Chicago"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CountryId = 3,
-                            Name = "Houston"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CountryId = 4,
-                            Name = "Oslo"
                         });
                 });
 
@@ -116,16 +94,6 @@ namespace PeopleMVC.Migrations
                         {
                             Id = 2,
                             Name = "Germany"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "USA"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Norway"
                         });
                 });
 

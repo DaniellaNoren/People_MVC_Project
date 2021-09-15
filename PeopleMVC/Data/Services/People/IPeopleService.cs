@@ -9,15 +9,15 @@ namespace PeopleMVC.Models.Services
 {
     public interface IPeopleService
     {
-        Person Add(CreatePersonViewModel person);
+        PersonViewModel Add(CreatePersonViewModel person);
 
         PeopleViewModel All();
 
         PeopleViewModel FindBy(PeopleViewModel search);
 
-        Person FindBy(int id);
+        PersonViewModel FindBy(int id);
 
-        Person Edit(int id, Person person);
+        PersonViewModel Edit(int id, Person person);
 
         bool Remove(int id);
 

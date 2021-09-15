@@ -1,4 +1,5 @@
-﻿using PeopleMVC.Models.Entities;
+﻿using PeopleMVC.Data.Entities;
+using PeopleMVC.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace PeopleMVC.Models.DataManagement
 {
     public interface IPeopleRepo
     {
-        Person Create(string firstName, string lastName, string city, string phoneNr, string socialSecurityNr);
+        Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr);
 
         List<Person> Read();
 

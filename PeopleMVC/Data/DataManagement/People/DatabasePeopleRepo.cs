@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PeopleMVC.Data.DataBase;
+using PeopleMVC.Data.Entities;
 using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Entities;
 using System;
@@ -18,12 +19,12 @@ namespace PeopleMVC.Data.DataManagement
             _context = context;
         }
 
-        public Person Create(string firstName, string lastName, string city, string phoneNr, string socialSecurityNr)
+        public Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr)
         {
-            Person person = new Person(firstName, lastName, city, phoneNr, socialSecurityNr);
-            person = _context.People.Add(person).Entity;
+            Person person = new Person(firstName, lastName,cityId, phoneNr, socialSecurityNr);
+            _context.People.Add(person); 
             _context.SaveChanges();
-            return person;
+            return Read(person.Id);
         }
 
         public bool Delete(Person person)
@@ -33,7 +34,7 @@ namespace PeopleMVC.Data.DataManagement
                 _context.People.Remove(person);
                 _context.SaveChanges();
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 return false;
             }
@@ -44,12 +45,12 @@ namespace PeopleMVC.Data.DataManagement
 
         public List<Person> Read()
         {
-            return _context.People.ToList();
+            return _context.People.Include(p => p.City).ThenInclude(c => c.Country).ToList();
         }
 
         public Person Read(int id)
         {
-            Person person = _context.People.Find(id);
+            Person person = _context.People.Include(p => p.City).ThenInclude(c => c.Country).FirstOrDefault(p => p.Id == id);
 
             if (person == null)
                 throw new EntityNotFoundException("Person with id " + id + " not found");
@@ -70,7 +71,7 @@ namespace PeopleMVC.Data.DataManagement
 
         public Person Update(Person person)
         {
-            _context.Attach(person);
+            _context.Update(person);
             _context.SaveChanges();
 
             return Read(person.Id);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PeopleMVC.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,9 +18,10 @@ namespace PeopleMVC.Models.Entities
         public string LastName { get { return lastName; } set { lastName = value; } }
         private string lastName;
         [Required]
-        [MaxLength(50)]
-        public string City { get { return city; } set { city = value; } }
-        private string city;
+        public City City { get { return city; } set { city = value; } }
+        private City city;
+
+        public int CityId { get; set; }
 
         [Phone]
         public string PhoneNr { get { return phoneNr; } set { phoneNr = value; } }
@@ -27,7 +29,6 @@ namespace PeopleMVC.Models.Entities
 
 
         [Required]
-        [StringLength(10)]
         public string SocialSecurityNr { get { return socialSecurityNr; } set { socialSecurityNr = value; } }
         private string socialSecurityNr;
 
@@ -37,7 +38,16 @@ namespace PeopleMVC.Models.Entities
 
         public Person() { }
         public Person(string firstName, string lastName, 
-            string city, string phoneNr, int id, string SSN) : this(id)
+            int cityId, string phoneNr, int id, string SSN) : this(id)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.CityId = cityId;
+            this.PhoneNr = phoneNr;
+            this.SocialSecurityNr = SSN;
+        } 
+        public Person(string firstName, string lastName, 
+            City city, string phoneNr, string SSN) 
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -46,11 +56,11 @@ namespace PeopleMVC.Models.Entities
             this.SocialSecurityNr = SSN;
         } 
         public Person(string firstName, string lastName, 
-            string city, string phoneNr, string SSN) 
+            int cityId, string phoneNr, string SSN) 
         {
             this.FirstName = firstName;
             this.LastName = lastName;
-            this.City = city;
+            this.CityId = cityId;
             this.PhoneNr = phoneNr;
             this.SocialSecurityNr = SSN;
         }
