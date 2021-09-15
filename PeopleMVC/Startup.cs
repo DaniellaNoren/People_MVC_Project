@@ -15,6 +15,13 @@ using PeopleMVC.Data.Services.Cities;
 using PeopleMVC.Data.DataManagement.Cities;
 using PeopleMVC.Data.Services.Languages;
 using PeopleMVC.Data.DataManagement.Languages;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Identity;
+using PeopleMVC.Data;
+using PeopleMVC.Data.Services.User;
+using PeopleMVC.Data.DataManagement.User;
 
 namespace PeopleMVC
 {
@@ -31,16 +38,59 @@ namespace PeopleMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
             services.AddScoped<IPeopleService, PeopleService>();
-            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();  
+            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
             services.AddScoped<ICountryService, CountryService>();
-            services.AddScoped<ICountryRepo, DatabaseCountryRepo>();  
+            services.AddScoped<ICountryRepo, DatabaseCountryRepo>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICityRepo, DatabaseCityRepo>();
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<ILanguageRepo, DatabaseLanguageRepo>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsFactory>();
 
-            services.AddDbContext<PeopleContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PeopleDB")).EnableSensitiveDataLogging());
+            services.AddDbContext<PeopleContext>(options => options.UseSqlServer(
+                Configuration.GetConnectionString("PeopleDB")).EnableSensitiveDataLogging());
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequiredUniqueChars = 0;
+
+                // Lockout settings.
+             
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+            });
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //   // options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            //})
+            //    .AddCookie(options => options.Events = new CookieAuthenticationEvents()
+            //    {
+            //        // OnValidatePrincipal = async c => { //check someti}
+            //    })
+            //    .AddCookie("external")
+            //    .AddGoogle(options =>
+            //    {
+            //        options.SignInScheme = "external";
+            //        options.ClientId = Configuration["Google:ClientId"];
+            //        options.ClientSecret = Configuration["Google:ClientSecret"];
+            //    });
+
+            services.AddControllersWithViews(op => op.Filters.Add(new AuthorizeFilter()));
+           
 
             services.AddCors(options =>
             {
@@ -54,7 +104,7 @@ namespace PeopleMVC
             });
         }
 
-     
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -68,11 +118,14 @@ namespace PeopleMVC
                 options.AllowAnyMethod();
                 options.AllowAnyOrigin();
             });
-           
+
 
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

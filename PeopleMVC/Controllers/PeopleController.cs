@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleMVC.Data.Entities.ViewModels;
 using PeopleMVC.Data.Entities.ViewModels.Person;
@@ -13,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace PeopleMVC.Controllers
 {
-    
     public class PeopleController : Controller
     {
         private static IPeopleService _peopleService;
@@ -31,7 +31,7 @@ namespace PeopleMVC.Controllers
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
             ViewBag.Languages = new SelectList(_languageService.All().Languages, "Id", "LanguageName");
 
-            return View(_peopleService.All());
+         return View(_peopleService.All());
         }
         
         [HttpPost]
