@@ -7,5 +7,11 @@ namespace PeopleMVC.Data.Entities.ViewModels.User
 {
     public class UsersViewModel
     {
+        public List<UserViewModel> Users { get; set; }
+
+        public UsersViewModel()
+        {
+
+        }
     }
 }

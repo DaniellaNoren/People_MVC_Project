@@ -5,14 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PeopleMVC.Data;
 using PeopleMVC.Data.Database;
 
-namespace PeopleMVC.Migrations.PeopleMVC
+namespace PeopleMVC.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210914083218_identity-init")]
-    partial class identityinit
+    [Migration("20210915175947_createadmin")]
+    partial class createadmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +46,15 @@ namespace PeopleMVC.Migrations.PeopleMVC
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
+                            ConcurrencyStamp = "4ca502b3-0b10-46ee-b71a-9eac718d209e",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -100,12 +108,10 @@ namespace PeopleMVC.Migrations.PeopleMVC
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -134,6 +140,13 @@ namespace PeopleMVC.Migrations.PeopleMVC
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "6ce8a888-ad60-493f-a351-4fb416b81284",
+                            RoleId = "438db5c8-0513-43a0-a84c-cd416c4e3a54"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -142,12 +155,10 @@ namespace PeopleMVC.Migrations.PeopleMVC
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -157,7 +168,7 @@ namespace PeopleMVC.Migrations.PeopleMVC
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PeopleMVC.Data.User.ApplicationUser", b =>
+            modelBuilder.Entity("PeopleMVC.Data.DataManagement.User.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -165,7 +176,7 @@ namespace PeopleMVC.Migrations.PeopleMVC
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("AccountStarted")
+                    b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -179,7 +190,10 @@ namespace PeopleMVC.Migrations.PeopleMVC
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -226,6 +240,26 @@ namespace PeopleMVC.Migrations.PeopleMVC
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "6ce8a888-ad60-493f-a351-4fb416b81284",
+                            AccessFailedCount = 0,
+                            Birthday = new DateTime(2021, 9, 15, 19, 59, 47, 309, DateTimeKind.Local).AddTicks(4774),
+                            ConcurrencyStamp = "09ecf7d4-a84f-4f62-95fa-cb6810c27eaa",
+                            Email = "admin@admin.com",
+                            EmailConfirmed = false,
+                            FirstName = "Donald",
+                            LastName = "Duck",
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGXaHcDMiEKDBhovcw5Pbv2oIQWt6IlyeedLvdq6EpbaAjByhOFuxDvIzSNx+KNjlQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "08cd9810-5990-4ef8-85ca-089658843a69",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -239,7 +273,7 @@ namespace PeopleMVC.Migrations.PeopleMVC
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PeopleMVC.Data.User.ApplicationUser", null)
+                    b.HasOne("PeopleMVC.Data.DataManagement.User.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -248,7 +282,7 @@ namespace PeopleMVC.Migrations.PeopleMVC
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PeopleMVC.Data.User.ApplicationUser", null)
+                    b.HasOne("PeopleMVC.Data.DataManagement.User.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -263,7 +297,7 @@ namespace PeopleMVC.Migrations.PeopleMVC
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PeopleMVC.Data.User.ApplicationUser", null)
+                    b.HasOne("PeopleMVC.Data.DataManagement.User.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -272,7 +306,7 @@ namespace PeopleMVC.Migrations.PeopleMVC
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("PeopleMVC.Data.User.ApplicationUser", null)
+                    b.HasOne("PeopleMVC.Data.DataManagement.User.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

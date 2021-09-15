@@ -27,7 +27,7 @@ namespace PeopleMVC.Controllers
             _cityService = cityService;
             _languageService = languageService;
         }
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult PeopleIndex()
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
@@ -37,7 +37,7 @@ namespace PeopleMVC.Controllers
         }
         
         [HttpPost]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult AddPerson(CreatePersonViewModel person) 
         {
 
@@ -48,7 +48,7 @@ namespace PeopleMVC.Controllers
 
             return RedirectToAction("PeopleIndex");
         }
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult FilterPeople(PeopleViewModel searchTerms)
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
@@ -65,7 +65,7 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult SortPeople(SortingModel sortingModel)
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
@@ -75,7 +75,7 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost("people/UpdatePerson")]
-        [Authorize(Roles =  "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult UpdatePerson(EditPersonViewModel person)
         {
             PersonViewModel editedPerson = _peopleService.Edit(person.Id, person);

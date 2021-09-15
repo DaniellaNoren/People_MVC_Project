@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Authorization;
 @inject IAuthorizationService AuthorizationService; 
 @{ 
-    //var isUserAuthorized = AuthorizationService.AuthorizeAsync(User, "IsAdmin").Result;
+   
 }
 <!DOCTYPE html>
 
@@ -39,14 +39,20 @@
                     <a class="nav-link" asp-controller="Languages"
                        asp-action="LanguageIndex">Languages</a>
                 </li>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-controller="Account"
+                           asp-action="UserIndex">Users</a>
+                    </li>
+                }
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item active">
                         <a class="nav-link" asp-controller="Account"
                            asp-action="LogOut">Logout</a>
                     </li>
-                   
-
                 }
                 else
                 {
@@ -61,16 +67,8 @@
     </div>
     <div>
         @RenderBody()
-
-        @if (User.Identity.IsAuthenticated)
-            foreach (var claim in User.Claims.ToList())
-            {
-                <p>@claim.Type : @claim.Value</p><br />
-            }
     </div>
-    @*@if(isUserAuthorized.Succeeded){ 
-        <p>WOW</p>
-    }*@
+
     @RenderSection("scripts", false)
 </body>
 </html>

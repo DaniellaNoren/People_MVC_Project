@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PeopleMVC.Migrations.PeopleMVC
+namespace PeopleMVC.Migrations
 {
-    public partial class identityinit : Migration
+    public partial class createadmin : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,8 +40,9 @@ namespace PeopleMVC.Migrations.PeopleMVC
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    AccountStarted = table.Column<DateTime>(nullable: false),
-                    FullName = table.Column<string>(nullable: true)
+                    Birthday = table.Column<DateTime>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,8 +95,8 @@ namespace PeopleMVC.Migrations.PeopleMVC
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -139,8 +140,8 @@ namespace PeopleMVC.Migrations.PeopleMVC
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -153,6 +154,21 @@ namespace PeopleMVC.Migrations.PeopleMVC
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "4ca502b3-0b10-46ee-b71a-9eac718d209e", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Birthday", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "6ce8a888-ad60-493f-a351-4fb416b81284", 0, new DateTime(2021, 9, 15, 19, 59, 47, 309, DateTimeKind.Local).AddTicks(4774), "09ecf7d4-a84f-4f62-95fa-cb6810c27eaa", "admin@admin.com", false, "Donald", "Duck", false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEGXaHcDMiEKDBhovcw5Pbv2oIQWt6IlyeedLvdq6EpbaAjByhOFuxDvIzSNx+KNjlQ==", null, false, "08cd9810-5990-4ef8-85ca-089658843a69", false, "admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "6ce8a888-ad60-493f-a351-4fb416b81284", "438db5c8-0513-43a0-a84c-cd416c4e3a54" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

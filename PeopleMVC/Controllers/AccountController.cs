@@ -60,6 +60,20 @@ namespace PeopleMVC.Controllers
             return RedirectToAction("Login");
         }
 
+        [Authorize(Roles = "Admin")]
+        public IActionResult UserIndex()
+        {
+            return View(_userService.All());
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult AddRole(string userName, string role)
+        {
+            _userService.AddRole(userName, role);
+
+            return RedirectToAction("UserIndex");
+        }
         public IActionResult AccessDenied()
         {
             return View();

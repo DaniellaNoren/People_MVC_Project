@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PeopleMVC.Data.DataManagement.User;
 using PeopleMVC.Data.Entities;
 using PeopleMVC.Data.Entities.ViewModels.User;
+using PeopleMVC.Models.DataManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +14,16 @@ namespace PeopleMVC.Data.Services.User
 {
     public class UserService : IUserService
     {
-      
-        private UserManager<ApplicationUser> _userManager;
-        private SignInManager<ApplicationUser> _signInManager;
-        private RoleManager<IdentityRole> _roleManager;
+
+        private static UserManager<ApplicationUser> _userManager;
+        private static SignInManager<ApplicationUser> _signInManager;
+        private static RoleManager<IdentityRole> _roleManager;
         public UserService(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-            
-            this._signInManager = signInManager;
-            this._userManager = userManager;
-            this._roleManager = roleManager;
+
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
 
@@ -30,48 +32,38 @@ namespace PeopleMVC.Data.Services.User
             ApplicationUser createdUser = GetUserFromModel(user);
 
             IdentityResult result = _userManager.CreateAsync(createdUser, user.Password).Result;
-            
+
             if (result.Succeeded)
             {
-                if (!_roleManager.RoleExistsAsync("User").Result)
-                {
-                    _roleManager.CreateAsync(new IdentityRole("User"));
-                }
-                
-                var res = _userManager.AddToRoleAsync(createdUser, "USER").Result;
-                if (res.Succeeded)
-                {
+                AddRole(user.UserName, "User");
 
-                }
-                else
-                {
-
-                }
-               
-            }
+            }  //TODO: check
             else
             {
-                
+
             }
-           
+
 
             return GetModelFromUser(createdUser);
         }
 
-        private UserViewModel GetModelFromUser(ApplicationUser user)
+        private static UserViewModel GetModelFromUser(ApplicationUser user)
         {
+
             UserViewModel model = new UserViewModel()
             {
                 UserName = user.UserName,
                 FullName = user.FirstName + " " + user.LastName,
                 Email = user.Email,
-                Birthday = user.Birthday
+                Birthday = user.Birthday,
+                Id = user.Id,
+                Roles = _userManager.GetRolesAsync(user).Result.ToList()
             };
 
             return model;
         }
 
-        private ApplicationUser GetUserFromModel(CreateUserViewModel user)
+        private static ApplicationUser GetUserFromModel(CreateUserViewModel user)
         {
             ApplicationUser createdUser = new ApplicationUser()
             {
@@ -86,9 +78,18 @@ namespace PeopleMVC.Data.Services.User
 
         }
 
+        public static async Task<List<UserViewModel>> GetUsers()
+        {
+            return await _userManager.Users.Select(user => GetModelFromUser(user)).ToListAsync();
+        }
+
         public UsersViewModel All()
         {
-            throw new NotImplementedException();
+            return new UsersViewModel()
+            {
+                Users = GetUsers().Result
+
+            };
         }
 
         public UserViewModel Edit(string id, CreateUserViewModel person)
@@ -98,7 +99,16 @@ namespace PeopleMVC.Data.Services.User
 
         public UserViewModel FindBy(string userName)
         {
-            throw new NotImplementedException();
+            ApplicationUser user = _userManager.FindByNameAsync(userName).Result;
+
+            if (user != null)
+            {
+                return GetModelFromUser(user);
+            }
+            else
+            {
+                throw new EntityNotFoundException();
+            }
         }
 
         public async Task<ApplicationUser> Login(string username)
@@ -106,12 +116,12 @@ namespace PeopleMVC.Data.Services.User
             return await _userManager.FindByNameAsync(username);
         }
 
-        public  bool Login(LoginViewModel login)
+        public bool Login(LoginViewModel login)
         {
 
             ApplicationUser user = Login(login.UserName).Result;
 
-            if(user != null)
+            if (user != null)
             {
                 var signInResult = _signInManager.PasswordSignInAsync(user, login.Password, true, false);
                 return signInResult.Result.Succeeded;
@@ -133,6 +143,33 @@ namespace PeopleMVC.Data.Services.User
         public void Logout()
         {
             LogoutAsync();
+        }
+
+        public void AddRole(string userName, string role)
+        {
+            ApplicationUser user = _userManager.FindByNameAsync(userName).Result;
+
+            if (user != null)
+            {
+                if (!_roleManager.RoleExistsAsync(role).Result)
+                {
+                    _roleManager.CreateAsync(new IdentityRole(role));
+                }
+
+                if (_userManager.AddToRoleAsync(user, role.ToUpper()).Result.Succeeded)
+                //TODO: check
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+
+            }
         }
     }
 }

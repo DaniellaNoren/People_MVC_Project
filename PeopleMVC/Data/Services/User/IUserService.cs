@@ -1,4 +1,5 @@
 ﻿
+using PeopleMVC.Data.DataManagement.User;
 using PeopleMVC.Data.Entities;
 using PeopleMVC.Data.Entities.ViewModels.User;
 using System;
@@ -20,6 +21,7 @@ namespace PeopleMVC.Data.Services.User
 
         bool Remove(int id);
 
+        void AddRole(string userName, string role);
         bool Login(LoginViewModel login);
 
         void Logout();

@@ -8,3 +8,12 @@
         $("#reg-btn").prop("disabled", false);
     }
 })
+
+$(".make-admin-btn").click(function() {
+    let userName = $(this).attr("id");
+
+    $.post(`/Account/AddRole`, { role: "ADMIN", userName }, res => { console.log(res)})
+        .fail(() => {
+           console.log("fail")
+        })
+});
