@@ -13,7 +13,8 @@ namespace PeopleMVC.Data.DataBase
         public DbSet<Person> People { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
-
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<LanguagePerson> LanguagePerson { get; set; }
         public PeopleContext(DbContextOptions<PeopleContext> options) : base(options)
         {
 
@@ -24,7 +25,9 @@ namespace PeopleMVC.Data.DataBase
             modelBuilder.Entity<Person>().HasIndex(p => p.SocialSecurityNr).IsUnique();
             modelBuilder.Entity<City>().HasIndex(c => c.Name).IsUnique();
             modelBuilder.Entity<Country>().HasIndex(c => c.Name).IsUnique();
-            
+
+            modelBuilder.Entity<LanguagePerson>().HasKey(lp => new { lp.PersonId, lp.LanguageId });
+
             Country sweden = new Country() { Name = "Sweden", Id = 1 };
             Country germany = new Country() { Name = "Germany", Id = 2 };
             Country usa = new Country() { Name = "USA", Id = 3 };
@@ -43,9 +46,26 @@ namespace PeopleMVC.Data.DataBase
             Person karin = new Person() { FirstName = "Karin", LastName = "Andersson", PhoneNr = "074-3244-444", Id = 3, CityId = goteborg.Id, SocialSecurityNr = "9206901111" };
             Person fatima = new Person() { FirstName = "Fatima", LastName = "Koh", PhoneNr = "071-1234-123", Id = 4, CityId = goteborg.Id, SocialSecurityNr = "9206905678" };
 
+            Language swedish = new Language() { Name = "Swedish", Id = 1 };
+            Language german = new Language() { Name = "German", Id = 2 };
+            Language italian = new Language() { Name = "Italian", Id = 3 };
+            Language chinese = new Language() { Name = "Mandarin", Id = 4 };
+
+            //tina.AddLanguage(swedish);
+            //tina.AddLanguage(german);
+            //olle.AddLanguage(swedish);
+            //karin.AddLanguage(swedish);
+            //fatima.AddLanguage(swedish);
+            //fatima.AddLanguage(german);
+            //fatima.AddLanguage(italian);
+
+            modelBuilder.Entity<Language>().HasData(swedish, german, italian, chinese);
             modelBuilder.Entity<Person>().HasData(tina, olle, karin, fatima);
+            modelBuilder.Entity<LanguagePerson>().HasData(new LanguagePerson(){ LanguageId = 1, PersonId = 1 }, new LanguagePerson() { LanguageId = 2, PersonId = 1 }, new LanguagePerson() { LanguageId = 1, PersonId = 2 }, new LanguagePerson() { LanguageId = 1, PersonId = 3 }, new LanguagePerson() { LanguageId = 1, PersonId = 4 }, new LanguagePerson() { LanguageId = 2, PersonId = 4 }, new LanguagePerson() { LanguageId = 3, PersonId = 4 });
+
             modelBuilder.Entity<City>().HasData(stockholm, goteborg, berlin, frankfurt, chicago, houston, oslo);
             modelBuilder.Entity<Country>().HasData(sweden, germany, usa, norway);
+           
 
         }
     }

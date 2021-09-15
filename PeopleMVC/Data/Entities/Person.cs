@@ -21,7 +21,8 @@ namespace PeopleMVC.Models.Entities
         public City City { get { return city; } set { city = value; } }
         private City city;
 
-        public int CityId { get; set; }
+        public int CityId { get { return cityId; } set { cityId = value; } }
+        private int cityId;
 
         [Phone]
         public string PhoneNr { get { return phoneNr; } set { phoneNr = value; } }
@@ -35,6 +36,9 @@ namespace PeopleMVC.Models.Entities
         [Key]
         public int Id { get { return id; } set { id = value; } }
         private int id;
+
+        public List<LanguagePerson> Languages { get { return languages; } set { languages = value; } }
+        private List<LanguagePerson> languages;
 
         public Person() { }
         public Person(string firstName, string lastName, 
@@ -67,6 +71,14 @@ namespace PeopleMVC.Models.Entities
         public Person(int id)
         {
             this.Id = id;
+        }
+
+        public void AddLanguage(Language language)
+        {
+            if (this.Languages == null)
+                this.Languages = new List<LanguagePerson>();
+
+            this.Languages.Add(new LanguagePerson() { LanguageId = language.Id });
         }
     }
 }

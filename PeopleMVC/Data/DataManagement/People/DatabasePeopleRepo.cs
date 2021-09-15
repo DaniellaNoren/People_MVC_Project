@@ -6,6 +6,7 @@ using PeopleMVC.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PeopleMVC.Data.DataManagement
@@ -19,11 +20,21 @@ namespace PeopleMVC.Data.DataManagement
             _context = context;
         }
 
-        public Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr)
+        public Person Create(string firstName, string lastName, int cityId, string phoneNr, string socialSecurityNr, List<Language> languages)
         {
-            Person person = new Person(firstName, lastName,cityId, phoneNr, socialSecurityNr);
-            _context.People.Add(person); 
+            Person person = new Person(firstName, lastName, cityId, phoneNr, socialSecurityNr);
+
+            if(languages != null)
+            {
+                foreach (Language language in languages)
+                {
+                    person.AddLanguage(language);
+                }
+            }
+           
+            _context.People.Add(person);
             _context.SaveChanges();
+
             return Read(person.Id);
         }
 
@@ -38,19 +49,18 @@ namespace PeopleMVC.Data.DataManagement
             {
                 return false;
             }
-           
-          
+
             return true;
         }
 
         public List<Person> Read()
         {
-            return _context.People.Include(p => p.City).ThenInclude(c => c.Country).ToList();
+            return _context.People.Include(p => p.Languages).ThenInclude(lp => lp.Language).Include(p => p.City).ThenInclude(c => c.Country).ToList();
         }
 
         public Person Read(int id)
         {
-            Person person = _context.People.Include(p => p.City).ThenInclude(c => c.Country).FirstOrDefault(p => p.Id == id);
+            Person person = _context.People.Include(p => p.Languages).ThenInclude(lp => lp.Language).Include(p => p.City).ThenInclude(c => c.Country).FirstOrDefault(p => p.Id == id);
 
             if (person == null)
                 throw new EntityNotFoundException("Person with id " + id + " not found");
@@ -71,7 +81,20 @@ namespace PeopleMVC.Data.DataManagement
 
         public Person Update(Person person)
         {
-            _context.Update(person);
+            Person p = Read(person.Id);
+
+            var properties = person.GetType().GetProperties();
+
+            for (int i = 0; i < properties.Length; i++)
+            {
+                if (properties[i].GetValue(person) != null)
+                {
+                    p.GetType().GetProperty(properties[i].Name).SetValue(p, properties[i].GetValue(person));
+
+                }
+            }
+
+            _context.Update(p);
             _context.SaveChanges();
 
             return Read(person.Id);

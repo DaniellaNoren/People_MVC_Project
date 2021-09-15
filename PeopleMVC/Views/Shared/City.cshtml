@@ -6,7 +6,8 @@
 }
 
 
-<div class="values">
-    <p>@Model.Name</p>
-    <p>@Model.Country.Name</p>
-</div>
+<tr>
+    <td>@Model.Name</td>
+    <td>@Model.Country.Name</td>
+    <td><a asp-controller="Cities" asp-action="DeleteCity" asp-route-id="@Model.Id">Remove</a></td>
+</tr>

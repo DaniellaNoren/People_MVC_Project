@@ -9,24 +9,28 @@
     ViewBag.Title = "Countries";
 
 }
-<h2 class="header">Countries</h2>
-<div class="content">
-    <div>
-        <div class="headers">
-            <p>Name</p>
-        </div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Cities</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (CountryViewModel country in @Model.Countries)
         {
             <partial name="Country" model="@country" />
         }
-
+    </tbody>
+</table>
+<form class="create-form" asp-controller="Countries" asp-action="CreateCountry" method="post">
+    <div class="form-group">
+        <label class="form-text" for="Name">Name:</label>
+        <input class="form-control" type="text" name="name" value="" />
     </div>
-    <form class="create-form" asp-controller="Countries" asp-action="CreateCountry" method="post">
-        <div class="input-label">
-            <label for="Name">Name:</label>
-            <input type="text" name="name" value="" />
-        </div>
-
-        <input class="submit-btn" type="submit" name="submit" value="Create" />
-    </form>
-</div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit" name="submit" value="Create" >Create</button>
+    </div>
+</form>

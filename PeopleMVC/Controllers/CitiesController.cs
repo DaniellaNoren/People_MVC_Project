@@ -53,7 +53,7 @@ namespace PeopleMVC.Controllers
             return RedirectToAction("CitiesIndex");
         }
 
-        [HttpPost("cities/del/{id}")]
+        [HttpGet("cities/del/{id}")]
         public IActionResult DeleteCity(int id)
         {
             _service.Remove(id);

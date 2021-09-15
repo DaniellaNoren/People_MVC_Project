@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PeopleMVC.Data.Entities.ViewModels.Language;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace PeopleMVC.Data.Entities.ViewModels
         public string LastName { get; set; }
        
         public CityViewModel City { get; set; }
+
+        public LanguagesViewModel Languages { get; set; }
     
         public string PhoneNr { get; set; }
         public string SocialSecurityNr { get; set; }

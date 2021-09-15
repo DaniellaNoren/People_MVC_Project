@@ -1,52 +1,64 @@
-﻿.content{
+﻿/*.content {
     display: grid;
     grid-template-columns: auto 5vw auto;
     grid-template-rows: 100%;
 }
-#people-table{
+
+#people-table {
     grid-column: 1/2;
-  width: 50vw;
-  margin: 1vw;
+    width: 50vw;
+    margin: 1vw;
 }
+
 #people-header, #person-row {
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
 }
-#person-row p{
-    width: 20%;
-}
-#people-header p{
-    width: 17%;
-    margin-left: 2vw;
-    margin-right: 2vw;
-}
-#person{
+
+    #person-row p {
+        width: 20%;
+    }
+
+    #people-header p {
+        width: 17%;
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+
+#person {
     width: 100%;
 }
+
 #person-row {
     width: 100%;
     background-color: #fad2e1;
 }
+
 #people-header, #person-row {
     border: 1px solid black;
     padding: 1vh;
 }
+
 #people-header {
     font-weight: bold;
     width: 100%;
     margin: 0;
     background-color: #fde2e4;
 }
+
 .header {
     margin-left: 2vw;
 }
+
 #people-table, .form-holder {
     margin: 1vh;
 }
+
 #forms {
     grid-column: 3/4;
 }
+
 .form-holder {
     margin-left: 2vw;
     width: 30vw;
@@ -55,21 +67,24 @@
     border: 1px solid black;
     background-color: #e2eCe9;
 }
-.input-label{
+
+.input-label {
     margin: 1vh;
 }
+
 th {
-   
-}
-td {
-   
 }
 
-.submit-btn{
+td {
+}
+
+.submit-btn {
     width: 10vw;
     display: block;
     margin: 1vw;
 }
-.list-input{
+
+.list-input {
     max-width: 10vw;
 }
+*/
