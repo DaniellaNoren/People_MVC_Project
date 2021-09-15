@@ -28,7 +28,6 @@ namespace PeopleMVC.Controllers
             if (ModelState.IsValid)
             {
                 _peopleService.Add(person);
-
             }
 
             return RedirectToAction("PeopleIndex");

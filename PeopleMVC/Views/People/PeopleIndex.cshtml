@@ -15,11 +15,12 @@
 
         <h2>People</h2>
         <div id="people-header">
-            <p>Firstname</p>
-            <p>Lastname</p>
-            <p>City</p>
-            <p>Phonenumber</p>
-            <p>Action</p>
+            <p class="header">Firstname</p>
+            <p class="header">Lastname</p>
+            <p class="header">City</p>
+            <p class="header">Phonenumber</p> 
+            <p class="header">SSN</p>
+            <p class="header">Action</p>
         </div>
 
         @foreach (var p in Model.People)
@@ -102,9 +103,20 @@
                     <label for="PhoneNr">Phonenumber:</label>
                     <input type="text" name="PhoneNr" value="Phone number" />
                 </div>
+                
+                <div class="input-label">
+                    <label for="SocialSecurityNr">Social security number:</label>
+                    <input type="text" name="SocialSecurityNr" value="YYMMDDXXXX" />
+                </div>
 
                 <input class="submit-btn" type="submit" name="name" value="Create" />
             </form>
         </div>
     </div>
+
+    @if (ViewBag.ErrorMsg != null)
+    {
+        <h2>@ViewBag.ErrorMsg</h2>
+    }
+
 </div>
