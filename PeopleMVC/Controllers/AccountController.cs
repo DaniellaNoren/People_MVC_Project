@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PeopleMVC.Data.Entities.ViewModels.User;
 using PeopleMVC.Data.Services.User;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace PeopleMVC.Controllers
 {
@@ -29,27 +24,25 @@ namespace PeopleMVC.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Register(CreateUserViewModel user, string returnUrl = "/people/peopleindex")
+        public IActionResult Register(CreateUserViewModel user)
         {
             _userService.Add(user);
 
-            return Redirect(returnUrl);
+            return RedirectToAction("Login");
         }
 
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return View(new LoginViewModel() { ReturnUrl = "/people/peopleindex" } );
+            return View(new LoginViewModel() { ReturnUrl = "/people/peopleindex" });
         }
 
         [HttpPost]
         [AllowAnonymous]
         public IActionResult Login(LoginViewModel model)
         {
-
-            var user = _userService.Login(model);
-
-            if (user) {
+            if (_userService.Login(model))
+            {
 
                 return LocalRedirect(model.ReturnUrl);
             }
@@ -65,7 +58,7 @@ namespace PeopleMVC.Controllers
         {
             _userService.Logout();
 
-            return Redirect("/people/peopleindex");
+            return RedirectToAction("Login");
         }
     }
 }
