@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace PeopleMVC.Controllers
 {
+    
     public class PeopleController : Controller
     {
         private static IPeopleService _peopleService;
@@ -26,6 +27,7 @@ namespace PeopleMVC.Controllers
             _cityService = cityService;
             _languageService = languageService;
         }
+        [Authorize(Roles = "User")]
         public IActionResult PeopleIndex()
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
@@ -35,6 +37,7 @@ namespace PeopleMVC.Controllers
         }
         
         [HttpPost]
+        [Authorize(Roles = "User")]
         public IActionResult AddPerson(CreatePersonViewModel person) 
         {
 
@@ -45,7 +48,7 @@ namespace PeopleMVC.Controllers
 
             return RedirectToAction("PeopleIndex");
         }
-
+        [Authorize(Roles = "User")]
         public IActionResult FilterPeople(PeopleViewModel searchTerms)
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
@@ -53,7 +56,7 @@ namespace PeopleMVC.Controllers
 
             return View("PeopleIndex", _peopleService.FindBy(searchTerms)); 
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult RemovePerson(int id)
         {
             _peopleService.Remove(id);
@@ -62,6 +65,7 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User")]
         public IActionResult SortPeople(SortingModel sortingModel)
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
@@ -71,6 +75,7 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost("people/UpdatePerson")]
+        [Authorize(Roles =  "User")]
         public IActionResult UpdatePerson(EditPersonViewModel person)
         {
             PersonViewModel editedPerson = _peopleService.Edit(person.Id, person);

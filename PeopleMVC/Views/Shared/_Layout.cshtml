@@ -1,4 +1,8 @@
-﻿
+﻿@using Microsoft.AspNetCore.Authorization;
+@inject IAuthorizationService AuthorizationService; 
+@{ 
+    //var isUserAuthorized = AuthorizationService.AuthorizeAsync(User, "IsAdmin").Result;
+}
 <!DOCTYPE html>
 
 <html>
@@ -64,7 +68,9 @@
                 <p>@claim.Type : @claim.Value</p><br />
             }
     </div>
-
+    @*@if(isUserAuthorized.Succeeded){ 
+        <p>WOW</p>
+    }*@
     @RenderSection("scripts", false)
 </body>
 </html>

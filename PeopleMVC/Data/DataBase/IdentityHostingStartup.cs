@@ -27,6 +27,7 @@ namespace PeopleMVC.Data.Database
                .AddEntityFrameworkStores<UserContext>()
                .AddDefaultTokenProviders();
 
+                
             });
 
 

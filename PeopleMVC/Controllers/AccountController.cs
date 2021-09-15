@@ -53,12 +53,16 @@ namespace PeopleMVC.Controllers
 
         }
 
-
         public IActionResult LogOut()
         {
             _userService.Logout();
 
             return RedirectToAction("Login");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

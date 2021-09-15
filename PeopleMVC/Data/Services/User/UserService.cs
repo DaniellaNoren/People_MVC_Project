@@ -5,6 +5,7 @@ using PeopleMVC.Data.Entities.ViewModels.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PeopleMVC.Data.Services.User
@@ -14,22 +15,39 @@ namespace PeopleMVC.Data.Services.User
       
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
-        public UserService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        private RoleManager<IdentityRole> _roleManager;
+        public UserService(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             
             this._signInManager = signInManager;
             this._userManager = userManager;
+            this._roleManager = roleManager;
         }
+
 
         public UserViewModel Add(CreateUserViewModel user)
         {
             ApplicationUser createdUser = GetUserFromModel(user);
 
             IdentityResult result = _userManager.CreateAsync(createdUser, user.Password).Result;
-
+            
             if (result.Succeeded)
             {
-                _signInManager.SignInAsync(createdUser, true);
+                if (!_roleManager.RoleExistsAsync("User").Result)
+                {
+                    _roleManager.CreateAsync(new IdentityRole("User"));
+                }
+                
+                var res = _userManager.AddToRoleAsync(createdUser, "USER").Result;
+                if (res.Succeeded)
+                {
+
+                }
+                else
+                {
+
+                }
+               
             }
             else
             {

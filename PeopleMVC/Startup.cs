@@ -50,12 +50,16 @@ namespace PeopleMVC
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsFactory>();
 
-            services.AddDbContext<PeopleContext>(options => options.UseSqlServer(
-                Configuration.GetConnectionString("PeopleDB")).EnableSensitiveDataLogging());
+            services.AddDbContext<PeopleContext>(options =>
+            {
+                options.UseSqlServer(
+Configuration.GetConnectionString("PeopleDB")).EnableSensitiveDataLogging();
+
+            });
 
             services.Configure<IdentityOptions>(options =>
             {
-                
+
                 // Password settings.
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
@@ -65,32 +69,25 @@ namespace PeopleMVC
                 options.Password.RequiredUniqueChars = 0;
 
                 // Lockout settings.
-             
+
 
                 // User settings.
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             });
-            //services.AddAuthentication(options =>
+
+            //services.AddAuthorization(options =>
             //{
-            //    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //   // options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-            //})
-            //    .AddCookie(options => options.Events = new CookieAuthenticationEvents()
-            //    {
-            //        // OnValidatePrincipal = async c => { //check someti}
-            //    })
-            //    .AddCookie("external")
-            //    .AddGoogle(options =>
-            //    {
-            //        options.SignInScheme = "external";
-            //        options.ClientId = Configuration["Google:ClientId"];
-            //        options.ClientSecret = Configuration["Google:ClientSecret"];
-            //    });
+            //    options.AddPolicy("CanDelete", policy => policy.RequireRole("Admin"));
+            //    options.AddPolicy("CanEdit", policy => policy.RequireRole("Admin"));
+            //    options.AddPolicy("CanEditPerson", policy => policy.RequireRole("User", "Admin"));
+            //    options.AddPolicy("CanViewPeople", policy => policy.RequireRole("User", "Admin"));
+            //    options.AddPolicy("CanEditUser", policy => policy.RequireRole("Admin"));
+            //});
 
             services.AddControllersWithViews(op => op.Filters.Add(new AuthorizeFilter()));
-           
+
 
             services.AddCors(options =>
             {
