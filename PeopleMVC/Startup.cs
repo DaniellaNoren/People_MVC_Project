@@ -48,7 +48,6 @@ namespace PeopleMVC
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<ILanguageRepo, DatabaseLanguageRepo>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsFactory>();
 
             services.AddDbContext<PeopleContext>(options =>
             {
@@ -64,7 +63,7 @@ Configuration.GetConnectionString("PeopleDB")).EnableSensitiveDataLogging();
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 6;
+                options.Password.RequiredLength = 1;
                 options.Password.RequiredUniqueChars = 0;
 
 
