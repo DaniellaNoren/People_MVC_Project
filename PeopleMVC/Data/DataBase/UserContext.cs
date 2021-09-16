@@ -20,15 +20,21 @@ namespace PeopleMVC.Data.Database
         {
             base.OnModelCreating(builder);
 
-            IdentityRole role = new IdentityRole()
+            IdentityRole roleAdmin = new IdentityRole()
             {
                 Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
                 Name = "Admin",
                 NormalizedName = "ADMIN"
             };
+            IdentityRole roleUser = new IdentityRole()
+            {
+                Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
+                Name = "User",
+                NormalizedName = "USER"
+            };
 
             builder.Entity<IdentityRole>().HasData(
-              role);
+              roleAdmin, roleUser);
 
 
             PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
@@ -53,8 +59,15 @@ namespace PeopleMVC.Data.Database
             builder.Entity<IdentityUserRole<string>>().HasData(
                 new IdentityUserRole<string>
                 {
-                    RoleId = role.Id,
-                    UserId = admin.Id                }
+                    RoleId = roleAdmin.Id,
+                    UserId = admin.Id
+                }
+            ,
+                new IdentityUserRole<string>
+                {
+                    RoleId = roleUser.Id,
+                    UserId = admin.Id
+                }
             );
         }
     }
