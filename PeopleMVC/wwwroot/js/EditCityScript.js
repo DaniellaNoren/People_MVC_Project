@@ -11,7 +11,7 @@ $(".edit-submit-btn").click(function () {
         $("#city-row-" + id).html(res);
     })
         .fail(() => {
-            console.log("Something went wrong");
+            $("#error-msg").html("Something went wrong!");
         })
 })
 

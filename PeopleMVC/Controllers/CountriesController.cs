@@ -52,5 +52,14 @@ namespace PeopleMVC.Controllers
             _service.Remove(id);
             return RedirectToAction("CountriesIndex");
         }
+
+        [HttpPost]
+        public IActionResult UpdateCountry(EditCountryViewModel country)
+        {
+
+            CountryViewModel editedCountry = _service.Edit(country);
+
+            return PartialView("Country", editedCountry);
+        }
     }
 }

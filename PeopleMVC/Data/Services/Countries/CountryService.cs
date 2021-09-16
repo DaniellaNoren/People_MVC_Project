@@ -29,11 +29,15 @@ namespace PeopleMVC.Data.Services.Countries
             return new CountriesViewModel() { Countries = _repo.Read().Select(c => GetCountryViewModelFromEntity(c)).ToList() };
         }
 
-        public CountryViewModel Edit(int id, Country country)
+        public CountryViewModel Edit(EditCountryViewModel country)
         {
-            country.Id = id;
-            country = _repo.Update(country);
-            return GetCountryViewModelFromEntity(country);
+            Country editedCountry = _repo.Read(country.Id);
+
+            if (country.Name != null)
+                editedCountry.Name = country.Name;
+
+            editedCountry = _repo.Update(editedCountry);
+            return GetCountryViewModelFromEntity(editedCountry);
         }
 
         public CountryViewModel FindBy(int id)
