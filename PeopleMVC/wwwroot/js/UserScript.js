@@ -12,17 +12,9 @@
 $(".make-admin-btn").click(function() {
     let userName = $(this).attr("id");
 
-    $.post(`/Account/AddRole`, { role: "ADMIN", userName }, res => { console.log(res)})
+    $.post(`/Account/AddRole`, { role: "ADMIN", userName }, res => { $("body").html(res) })
+        
         .fail(() => {
-           console.log("fail")
+            $("#make-admin-error").html("Error! Could not make admin!")
         })
 });
-
-//$("#reg-btn").click(function () {
-//    let userName = $(this).attr("id");
-
-//    $.post(`/Account/AddRole`, { role: "ADMIN", userName }, res => { console.log(res)})
-//        .fail(() => {
-//           console.log("fail")
-//        })
-//});
