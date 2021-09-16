@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PeopleMVC.Data.Entities.ViewModels.User;
+using PeopleMVC.Data.Exceptions;
 using PeopleMVC.Data.Services.User;
 using System;
 
@@ -26,9 +27,24 @@ namespace PeopleMVC.Controllers
         [HttpPost]
         public IActionResult Register(CreateUserViewModel user)
         {
-            _userService.Add(user);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _userService.Add(user);
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ViewBag.RegistrationErrorMsg = "Values are missing!";
+                }
+            }
+            catch (CreationException e)
+            {
+                ViewBag.RegistrationErrorMsg = e.Message;
+            }
 
-            return RedirectToAction("Login");
+            return View(user);
         }
 
         [AllowAnonymous]
@@ -48,7 +64,8 @@ namespace PeopleMVC.Controllers
             }
             else
             {
-                return Unauthorized();
+                ViewBag.LoginErrorMsg = "Wrong username and/or password";
+                return View(model);
             }
 
         }

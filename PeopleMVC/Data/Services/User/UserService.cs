@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PeopleMVC.Data.DataManagement.User;
 using PeopleMVC.Data.Entities;
 using PeopleMVC.Data.Entities.ViewModels.User;
+using PeopleMVC.Data.Exceptions;
 using PeopleMVC.Models.DataManagement;
 using System;
 using System.Collections.Generic;
@@ -37,10 +38,15 @@ namespace PeopleMVC.Data.Services.User
             {
                 AddRole(user.UserName, "User");
 
-            }  //TODO: check
+            } 
             else
             {
-
+                string errorMsgs = "";
+                foreach (IdentityError error in result.Errors)
+                {
+                    errorMsgs += error.Description + ", ";
+                }
+                throw new CreationException(errorMsgs);
             }
 
 

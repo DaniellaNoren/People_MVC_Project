@@ -19,5 +19,9 @@
     </div>
 </form>
 
+@if (ViewBag.LoginErrorMsg != null)
+{
+    <h3 class="form-text text-warning">@ViewBag.LoginErrorMsg</h3>
+}
 <a class="nav-link" asp-controller="Account"
    asp-action="Register">Register</a>
