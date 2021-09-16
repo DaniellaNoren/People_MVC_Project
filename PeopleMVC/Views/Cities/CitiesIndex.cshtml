@@ -5,6 +5,10 @@
 @section styles {
     <link href="~/css/citycountrystyle.css" rel="stylesheet" type="text/css" />
 }
+@section scripts {
+    <script type="text/javascript" src="~/jquery/jquery.js"></script>
+    <script type="text/javascript" src="~/js/EditCityScript.js"></script>
+}
 @{
     ViewBag.Title = "Cities";
 }
@@ -15,12 +19,18 @@
             <th scope="col">Name</th>
             <th scope="col">Country</th>
             <th scope="col">Action</th>
+            <th scope="col">Edit</th>
         </tr>
     </thead>
     <tbody>
         @foreach (CityViewModel city in @Model.Cities)
         {
-            <partial name="City" model="@city" />
+            <tr class="city-row" id="city-row-@city.Id">
+                <partial name="City" model="@city" />
+            </tr>
+            <tr class="edit-city-row" id="edit-city-@city.Id">
+                <partial name="EditCity" model="@city" />
+            </tr>
         }
     </tbody>
 </table>

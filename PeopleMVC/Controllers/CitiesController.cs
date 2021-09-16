@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleMVC.Data.Entities.ViewModels;
+using PeopleMVC.Data.Entities.ViewModels.City;
 using PeopleMVC.Data.Services.Cities;
 using PeopleMVC.Data.Services.Countries;
 using PeopleMVC.Models.DataManagement;
@@ -53,6 +54,15 @@ namespace PeopleMVC.Controllers
             }
 
             return RedirectToAction("CitiesIndex");
+        }
+        
+        [HttpPost]
+        public IActionResult UpdateCity(EditCityViewModel city)
+        {
+            
+            CityViewModel editedCity =_service.Edit(city);
+        
+            return PartialView("City", editedCity);
         }
 
         [HttpGet("cities/del/{id}")]

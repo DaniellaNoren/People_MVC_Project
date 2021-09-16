@@ -1,6 +1,7 @@
 ﻿using PeopleMVC.Data.DataManagement.Cities;
 using PeopleMVC.Data.Entities;
 using PeopleMVC.Data.Entities.ViewModels;
+using PeopleMVC.Data.Entities.ViewModels.City;
 using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Entities;
 using System;
@@ -29,11 +30,18 @@ namespace PeopleMVC.Data.Services.Cities
             return new CitiesViewModel() { Cities = _repo.Read().Select(c => GetViewModelFromEntity(c)).ToList() };
         }
 
-        public CityViewModel Edit(int id, City city)
+        public CityViewModel Edit(EditCityViewModel city)
         {
-            city.Id = id;
-            city = _repo.Update(city);
-            return GetViewModelFromEntity(city);
+            City c = _repo.Read(city.Id);
+
+            if (city.Name != null)
+                c.Name = city.Name;
+            if (city.CountryId > 0)
+                c.CountryId = city.CountryId;
+
+            c = _repo.Update(c);
+
+            return GetViewModelFromEntity(c);
         }
 
         public CityViewModel FindBy(int id)
