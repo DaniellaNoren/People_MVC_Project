@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PeopleMVC.Data.Entities.ViewModels.User;
 using PeopleMVC.Data.Exceptions;
 using PeopleMVC.Data.Services.User;
+using PeopleMVC.Models.DataManagement;
 using System;
 
 namespace PeopleMVC.Controllers
@@ -87,9 +88,21 @@ namespace PeopleMVC.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AddRole(string userName, string role)
         {
-            _userService.AddRole(userName, role);
+            try
+            {
+                _userService.AddRole(userName, role);
+                
+            }
+            catch(CreationException e)
+            {
+                ViewBag.ErrorMsg = e.Message;
+            }catch(EntityNotFoundException e)
+            {
+                ViewBag.ErrorMsg = e.Message;
+            };
 
             return RedirectToAction("UserIndex");
+
         }
         public IActionResult AccessDenied()
         {

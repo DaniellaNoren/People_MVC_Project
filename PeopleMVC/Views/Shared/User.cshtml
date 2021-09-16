@@ -27,5 +27,7 @@
     }
 
 </tr>
-
-<h3 id="make-admin-error"></h3>
+@if (ViewBag.ErrorMsg != null)
+{
+    <h3 id="make-admin-error">@ViewBag.ErrorMsg</h3>
+}

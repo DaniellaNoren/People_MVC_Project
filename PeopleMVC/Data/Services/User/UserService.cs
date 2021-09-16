@@ -162,19 +162,15 @@ namespace PeopleMVC.Data.Services.User
                     _roleManager.CreateAsync(new IdentityRole(role));
                 }
 
-                if (_userManager.AddToRoleAsync(user, role.ToUpper()).Result.Succeeded)
-                //TODO: check
+                if (!_userManager.AddToRoleAsync(user, role.ToUpper()).Result.Succeeded)
                 {
-
+                    throw new CreationException("Role could not be added to user");
                 }
-                else
-                {
-
-                }
+               
             }
             else
             {
-
+                throw new EntityNotFoundException("User not found");
             }
         }
     }
