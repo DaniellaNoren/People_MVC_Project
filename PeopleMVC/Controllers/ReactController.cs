@@ -20,6 +20,12 @@ namespace PeopleMVC.Controllers
             this._countryService = countryService;
         }
 
+        [HttpGet("[controller]")]
+        public IActionResult GetMainPage()
+        {
+            return File("/react/build/index.html", "text/html");
+        }
+
         [HttpGet("[controller]/people")]
         public ActionResult<PeopleViewModel> GetAllPeople()
         {
