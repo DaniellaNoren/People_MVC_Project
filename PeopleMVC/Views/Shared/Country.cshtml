@@ -6,16 +6,20 @@
 }
 
 
-<tr>
-    <td>@Model.Name</td>
-    <td>
-        @foreach (CityViewModel city in @Model.Cities)
-        {
-            <p>@city.Name</p>
-        }
-    </td>
-    <td><a asp-controller="Countries" asp-action="DeleteCountry" asp-route-id="@Model.Id">Remove</a></td>
-</tr>
+
+<td>@Model.Name</td>
+<td>
+    @foreach (CityViewModel city in @Model.Cities)
+    {
+        <p>@city.Name</p>
+    }
+</td>
+<td><a class="btn btn-warning" asp-controller="Countries" asp-action="DeleteCountry" asp-route-id="@Model.Id">Remove</a></td>
+<td>
+    <button id="@Model.Id" class="edit-btn btn btn-primary">
+        Edit
+    </button>
+</td>
 
 
 

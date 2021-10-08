@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeopleMVC.Data.Entities.ViewModels.Language;
 using PeopleMVC.Data.Services.Languages;
 using PeopleMVC.Models.DataManagement;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace PeopleMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class LanguagesController : Controller
     {
         private readonly ILanguageService _service;

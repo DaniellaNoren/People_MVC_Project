@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PeopleMVC.Data.Entities.ViewModels;
 using PeopleMVC.Data.Entities.ViewModels.Person;
@@ -26,15 +27,17 @@ namespace PeopleMVC.Controllers
             _cityService = cityService;
             _languageService = languageService;
         }
+        [Authorize(Roles = "User, Admin")]
         public IActionResult PeopleIndex()
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
             ViewBag.Languages = new SelectList(_languageService.All().Languages, "Id", "LanguageName");
 
-            return View(_peopleService.All());
+         return View(_peopleService.All());
         }
         
         [HttpPost]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult AddPerson(CreatePersonViewModel person) 
         {
 
@@ -45,7 +48,7 @@ namespace PeopleMVC.Controllers
 
             return RedirectToAction("PeopleIndex");
         }
-
+        [Authorize(Roles = "User, Admin")]
         public IActionResult FilterPeople(PeopleViewModel searchTerms)
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
@@ -53,7 +56,7 @@ namespace PeopleMVC.Controllers
 
             return View("PeopleIndex", _peopleService.FindBy(searchTerms)); 
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult RemovePerson(int id)
         {
             _peopleService.Remove(id);
@@ -62,6 +65,7 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult SortPeople(SortingModel sortingModel)
         {
             ViewBag.Cities = new SelectList(_cityService.All().Cities, "Id", "Name");
@@ -71,6 +75,7 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost("people/UpdatePerson")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult UpdatePerson(EditPersonViewModel person)
         {
             PersonViewModel editedPerson = _peopleService.Edit(person.Id, person);

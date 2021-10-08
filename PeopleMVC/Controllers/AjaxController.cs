@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeopleMVC.Data.Entities.ViewModels;
 using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Entities;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace PeopleMVC.Controllers
 {
+    [Authorize(Roles = "Admin,User")]
     public class AjaxController : Controller
     {
         private IPeopleService _service;
@@ -46,6 +48,7 @@ namespace PeopleMVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             if(_service.Remove(id))

@@ -6,8 +6,12 @@
 }
 
 
-<tr>
+
     <td>@Model.Name</td>
     <td>@Model.Country.Name</td>
-    <td><a asp-controller="Cities" asp-action="DeleteCity" asp-route-id="@Model.Id">Remove</a></td>
-</tr>
+    <td><a class="btn btn-warning" asp-controller="Cities" asp-action="DeleteCity" asp-route-id="@Model.Id">Remove</a></td>
+    <td>
+        <button id="@Model.Id" class="edit-btn btn btn-primary">
+            Edit
+        </button>
+    </td>
