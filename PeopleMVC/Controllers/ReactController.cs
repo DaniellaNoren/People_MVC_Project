@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PeopleMVC.Data.Entities.ViewModels;
+using PeopleMVC.Data.Entities.ViewModels.Language;
 using PeopleMVC.Data.Services.Countries;
+using PeopleMVC.Data.Services.Languages;
 using PeopleMVC.Models.DataManagement;
 using PeopleMVC.Models.Services;
 using System;
@@ -13,11 +15,13 @@ namespace PeopleMVC.Controllers
     {
         private readonly IPeopleService _peopleService;
         private readonly ICountryService _countryService;
+        private readonly ILanguageService _languageService;
 
-        public ReactController(IPeopleService peopleService, ICountryService countryService)
+        public ReactController(IPeopleService peopleService, ILanguageService languageService, ICountryService countryService)
         {
             this._peopleService = peopleService;
             this._countryService = countryService;
+            this._languageService = languageService;
         }
 
         [HttpGet("[controller]")]
@@ -30,6 +34,12 @@ namespace PeopleMVC.Controllers
         public ActionResult<PeopleViewModel> GetAllPeople()
         {
             return new OkObjectResult(_peopleService.All());
+        }
+
+        [HttpGet("[controller]/languages")]
+        public ActionResult<LanguagesViewModel> GetAllLanguages()
+        {
+            return new OkObjectResult(_languageService.All());
         }
 
         [HttpGet("[controller]/countries")]

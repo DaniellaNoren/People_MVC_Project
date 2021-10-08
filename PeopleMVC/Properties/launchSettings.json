@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "people/peopleindex",
+      "launchUrl": "react",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
